@@ -20,9 +20,6 @@ function tests() {
 
     storagify.storage.setItem('abcdefga11111111', { a: 'b' })
 
-
-
-
 }
 
 main()

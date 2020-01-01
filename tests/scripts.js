@@ -1,4 +1,4 @@
-import { storagify } from '../index.js';
+import { AV64X4 } from '../index.js';
 
 function main() {
 
@@ -14,11 +14,24 @@ function main() {
 
 function tests() {
 
-    storagify.init('abcdefga11111111', {
-        dev: false, debug: false
-    })
+    let key = 'chavesecreta'
+    let value = '{ teste: true }{ teste: true }{ teste: true }{ teste: true }{ teste: true }{ teste: true }'
 
-    storagify.storage.setItem('abcdefga11111111', { a: 'b' })
+    let av64x4 = new AV64X4(key)
+
+    console.log('/*********************************************************************************************/');
+    console.log(key);
+    console.log(value);
+
+    let encoded = av64x4.encode(value)
+
+    console.log('encoded: ');
+    console.log(encoded);
+
+    console.log('decoded: ');
+    console.log(av64x4.decode(encoded));
+
+    console.log('/*********************************************************************************************/');
 
 }
 

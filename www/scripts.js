@@ -1,4 +1,4 @@
-import { AV64X4 } from '../index.js'
+import { storagify } from '../index.js'
 
 function main() {
 
@@ -14,28 +14,20 @@ function main() {
 
 function tests() {
 
-    let key = 'mysupersecretkey'
-    let value = 'my super secret message'
+    let value = {
+        test: true,
+        value: 2,
+        myarray: [1, 2, 3, 4, 5, 6]
+    }
 
-    console.log('/==========================================================================/');
+    storagify.init('mysupersecretkey', { dev: true })
 
-    let av64x4 = new AV64X4(key)
-    console.log(key)
-    console.log(value)
+    storagify.storage.setItem('myobject', value)
 
-    let encoded = av64x4.encode(value)
-    console.log('encoded:')
-    console.log(encoded)
+    let a = storagify.storage.getItem('myobject')
 
-    let decoded = av64x4.decode(encoded)
-    console.log('decoded:')
-    console.log(decoded)
+    console.log(a);
 
-    let when = av64x4.when(encoded)
-    console.log('when:')
-    console.log(when)
-
-    console.log('/==========================================================================/');
 
 }
 

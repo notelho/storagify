@@ -1,3 +1,3 @@
-
-
-- add timestamp
+- errors
+- implement debug
+- session & storage partials

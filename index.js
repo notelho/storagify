@@ -1,1 +1,1 @@
-export * from './lib/controller/controller.js'
+export * from './lib/controller/storagify.js'

@@ -1,3 +1,3 @@
-- errors
+
 - implement debug
-- session & storage partials
+- list

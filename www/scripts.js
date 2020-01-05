@@ -23,7 +23,7 @@ function tests() {
 
     console.warn('====================================================');
     console.log('test def to prod:');
-    // localStorage.setItem('meuitem', 'meu texto')
+    localStorage.setItem('meuitem', 'meu texto')
     console.log("meuitem:");
     console.log(localStorage.getItem("meuitem"));
     storagify.init('mysupersecretkey')
@@ -31,7 +31,7 @@ function tests() {
 
     console.warn('====================================================');
     console.log('test def to dev:');
-    // localStorage.setItem('meuitem2', 'meu texto2')
+    localStorage.setItem('meuitem2', 'meu texto2')
     console.log("meuitem2:");   
     console.log(localStorage.getItem("meuitem2"));
     storagify.init('mysupersecretkey', { dev: true })

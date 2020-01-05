@@ -32,7 +32,7 @@ function tests() {
     console.warn('====================================================');
     console.log('test def to dev:');
     localStorage.setItem('meuitem2', 'meu texto2')
-    console.log("meuitem2:");   
+    console.log("meuitem2:");
     console.log(localStorage.getItem("meuitem2"));
     storagify.init('mysupersecretkey', { dev: true })
     console.log(storagify.storage.getItem('meuitem2'));
@@ -60,6 +60,9 @@ function tests() {
     console.log('prod when:');
     storagify.init('mysupersecretkey')
     console.log(storagify.storage.when('meuitem2'));
+
+    console.warn('====================================================');
+    console.log(storagify.storage.list());
 
 }
 

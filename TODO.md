@@ -1,3 +1,3 @@
-
-- [Object Object] salvando no localstorage
-- init() converte toda a lista do storage pra mesma linguagem
+ 
+- normalize(key) transforma o valor em orginal
+- parseAll() converte toda a lista do storage pra mesma linguagem

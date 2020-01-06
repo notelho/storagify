@@ -1,4 +1,4 @@
-// import { storagify } from '../index.js'
+import { storagify } from '../index.js'
 
 import {
     init,
@@ -37,13 +37,17 @@ function tests() {
     // storagify.init('mysupersecretkey')
     // console.log(storagify.storage.getItem('meuitem'));
 
-    // console.warn('====================================================');
-    // console.log('test def to dev:');
-    // localStorage.setItem('meuitem2', 'meu texto2')
-    // console.log("meuitem2:");
-    // console.log(localStorage.getItem("meuitem2"));
-    // storagify.init('mysupersecretkey', { dev: true })
-    // console.log(storagify.storage.getItem('meuitem2'));
+    console.warn('====================================================');
+    console.log('test def to dev:');    
+    localStorage.setItem('meuitem2', {
+        a: 'b',
+        c: ['😜', '😜'],
+        teste: true
+    })
+    console.log("meuitem2:");
+    console.log(localStorage.getItem("meuitem2"));
+    storagify.init('mysupersecretkey',{ dev: true })
+    console.log(storagify.storage.getItem('meuitem2'));
 
     // console.warn('====================================================');
     // console.log('test dev to prod:');
@@ -82,13 +86,13 @@ function tests() {
 
     // init    session    storage
 
-    console.log('====================================================');
-    init('mysupersecretkey', { dev: true, debug: true })
-    console.log('debugger testing');
-    console.log("abc:");
-    console.log(storage().when('abc'));
-    console.log(storage().getItem('meuitem'));
-    console.log('====================================================');
+    // console.log('====================================================');
+    // init('mysupersecretkey', { dev: true, debug: true })
+    // console.log('debugger testing');
+    // console.log("abc:");
+    // console.log(storage().when('abc'));
+    // console.log(storage().getItem('meuitem'));
+    // console.log('====================================================');
 
 }
 

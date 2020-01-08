@@ -14,7 +14,7 @@ function main() {
 
 function tests() {
 
-    storagify.init('mykey')
+    storagify.init('test')
 
     // console.log(localStorage)
 

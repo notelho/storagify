@@ -16,7 +16,7 @@ function tests() {
 
     storagify.init('mykey')
 
-    console.log(localStorage)
+    // console.log(localStorage)
 
     localStorage.setItem('teste', { 
         a: 'b'

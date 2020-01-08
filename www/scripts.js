@@ -18,6 +18,10 @@ function tests() {
 
     console.log(localStorage)
 
+    localStorage.setItem('teste', { 
+        a: 'b'
+    })
+
     localStorage.list()
 
 }

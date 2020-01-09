@@ -16,13 +16,35 @@ function tests() {
 
     storagify.init('test')
 
-    // console.log(localStorage)
+    setTimeout(() => {
 
-    localStorage.setItem('teste', { 
-        a: 'b'
-    })
+        console.warn('test ------------------- 1 ')
+        localStorage.setItem('teste', { a: 'b' })
+        localStorage.setItem('teste2', 'teste2')
+        localStorage.setItem('teste3', null)
 
-    localStorage.list()
+        setTimeout(() => {
+
+            console.warn('test ------------------- 2 ')
+            console.log(localStorage.getItem('teste'))
+            console.log(localStorage.getItem('teste2'))
+            console.log(localStorage.getItem('teste3'))
+
+            setTimeout(() => {
+
+                console.warn('test ------------------- 3 ')
+                console.log(localStorage.list())
+                console.log(localStorage.when('teste'))
+                localStorage.removeItem('teste2')
+
+                setTimeout(() => {
+
+                    console.warn('test ------------------- 4 ')
+                    localStorage.clear()
+                }, 2000)
+            }, 2000)
+        }, 2000)
+    }, 2000)
 
 }
 

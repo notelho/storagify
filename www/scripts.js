@@ -16,35 +16,35 @@ function tests() {
 
     storagify.init('test')
 
-    setTimeout(() => {
+    // setTimeout(() => {
 
-        console.warn('test ------------------- 1 ')
-        localStorage.setItem('teste', { a: 'b' })
-        localStorage.setItem('teste2', 'teste2')
-        localStorage.setItem('teste3', null)
+    //     console.warn('test ------------------- 1 ')
+    //     localStorage.setItem('teste', { a: 'b' })
+    //     localStorage.setItem('teste2', 'teste2')
+    //     localStorage.setItem('teste3', null)
 
-        setTimeout(() => {
+    //     setTimeout(() => {
 
-            console.warn('test ------------------- 2 ')
-            console.log(localStorage.getItem('teste'))
-            console.log(localStorage.getItem('teste2'))
-            console.log(localStorage.getItem('teste3'))
+    //         console.warn('test ------------------- 2 ')
+    //         console.log(localStorage.getItem('teste'))
+    //         console.log(localStorage.getItem('teste2'))
+    //         console.log(localStorage.getItem('teste3'))
 
-            setTimeout(() => {
+    //         setTimeout(() => {
 
-                console.warn('test ------------------- 3 ')
-                console.log(localStorage.list())
-                console.log(localStorage.when('teste'))
-                localStorage.removeItem('teste2')
+    //             console.warn('test ------------------- 3 ')
+    //             console.log(localStorage.list())
+    //             console.log(localStorage.when('teste'))
+    //             localStorage.removeItem('teste2')
 
-                setTimeout(() => {
+    //             setTimeout(() => {
 
-                    console.warn('test ------------------- 4 ')
-                    localStorage.clear()
-                }, 2000)
-            }, 2000)
-        }, 2000)
-    }, 2000)
+    //                 console.warn('test ------------------- 4 ')
+    //                 localStorage.clear()
+    //             }, 2000)
+    //         }, 2000)
+    //     }, 2000)
+    // }, 2000)
 
 }
 

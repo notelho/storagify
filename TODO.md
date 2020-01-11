@@ -9,3 +9,6 @@
 - repensar erros.js
 
 superset
+
+check pra ver last chave
+transformar logger no aplicador do logger e do stringfy

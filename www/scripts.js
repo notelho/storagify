@@ -16,6 +16,29 @@ function tests() {
 
     storagify.init('test')
 
+    localStorage.setItem('teste', { a: 'b' })
+    localStorage.setItem('teste2', 'teste2')
+    localStorage.setItem('teste3', null)
+
+    console.warn('start:');
+    console.log(localStorage.getItem('teste'))
+    console.log(localStorage.getItem('teste2'))
+    console.log(localStorage.getItem('teste3'))
+
+    storagify.init('test', { dev: true })
+
+    console.warn('prod to dev:');
+    console.log(localStorage.getItem('teste'))
+    console.log(localStorage.getItem('teste2'))
+    console.log(localStorage.getItem('teste3'))
+
+    storagify.init('test')
+
+    console.warn('dev to prod:');
+    console.log(localStorage.getItem('teste'))
+    console.log(localStorage.getItem('teste2'))
+    console.log(localStorage.getItem('teste3'))
+
     // setTimeout(() => {
 
     //     console.warn('test ------------------- 1 ')
@@ -42,8 +65,10 @@ function tests() {
     //                 console.warn('test ------------------- 4 ')
     //                 localStorage.clear()
     //             }, 2000)
+
     //         }, 2000)
     //     }, 2000)
+
     // }, 2000)
 
 }

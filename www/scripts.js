@@ -11,33 +11,49 @@ function main() {
     body.appendChild(js)
 
 }
-
+// return options , { debug: true, stringfy: true}
 function tests() {
 
-    storagify.init('test')
+    console.warn('start');
 
-    localStorage.setItem('teste', { a: 'b' })
+    localStorage.setItem('teste', JSON.stringify({ a: 'b' }))
     localStorage.setItem('teste2', 'teste2')
     localStorage.setItem('teste3', null)
 
-    console.warn('start:');
     console.log(localStorage.getItem('teste'))
     console.log(localStorage.getItem('teste2'))
     console.log(localStorage.getItem('teste3'))
 
-    storagify.init('test', { dev: true })
+    setTimeout(() => {
+        7
+        console.warn('default to prod:');
+        storagify.init('test')
 
-    console.warn('prod to dev:');
-    console.log(localStorage.getItem('teste'))
-    console.log(localStorage.getItem('teste2'))
-    console.log(localStorage.getItem('teste3'))
+        console.log(localStorage.getItem('teste'))
+        console.log(localStorage.getItem('teste2'))
+        console.log(localStorage.getItem('teste3'))
 
-    storagify.init('test')
+        setTimeout(() => {
 
-    console.warn('dev to prod:');
-    console.log(localStorage.getItem('teste'))
-    console.log(localStorage.getItem('teste2'))
-    console.log(localStorage.getItem('teste3'))
+            console.warn('prod to dev:');
+            storagify.init('test', { dev: true })
+
+            console.log(localStorage.getItem('teste'))
+            console.log(localStorage.getItem('teste2'))
+            console.log(localStorage.getItem('teste3'))
+
+            setTimeout(() => {
+
+                console.warn('dev to prod:');
+                storagify.init('test')
+
+                console.log(localStorage.getItem('teste'))
+                console.log(localStorage.getItem('teste2'))
+                console.log(localStorage.getItem('teste3'))
+
+            }, 2000)
+        }, 2000)
+    }, 2000)
 
     // setTimeout(() => {
 

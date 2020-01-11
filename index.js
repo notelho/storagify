@@ -1,1 +1,1 @@
-export * from './lib/models/storagify.js'
+export * from './lib/controller/storagify.js'

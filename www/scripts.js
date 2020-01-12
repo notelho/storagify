@@ -1,4 +1,3 @@
-import { storagify } from '../index.js'
 
 function main() {
 
@@ -11,9 +10,9 @@ function main() {
     body.appendChild(js)
 
 }
-// return options , { debug: true, stringfy: true}
-function tests() {
 
+function tests() {
+    // return options , { debug: true, stringfy: true}
     console.warn('start');
 
     localStorage.setItem('teste', JSON.stringify({ a: 'b' }))
@@ -54,8 +53,6 @@ function tests() {
             }, 2000)
         }, 2000)
     }, 2000)
-
-
 
 }
 

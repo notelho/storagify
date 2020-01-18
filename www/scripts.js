@@ -1,7 +1,11 @@
 
 function main() {
 
-    tests()
+    // tests()
+
+    storagify.init('storagify')
+
+    localStorage.setItem('storagify', 'storagify')
 
     let body = document.querySelector('body')
     let js = document.createElement('div')

@@ -70,7 +70,7 @@ Storagify has three main options: development mode, debug and stringfy.
  
 
 ## Contributing
-The library is in the testing phase and may be modified. You can contribute by reporting errors or suggesting new features [HERE](https://github.com/enbot/storagify/issues).
+The library is in the testing phase and may be modified. You can contribute by reporting errors or suggesting new features [HERE](https://github.com/notelho/storagify/issues).
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

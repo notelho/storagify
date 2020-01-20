@@ -66,7 +66,7 @@ Storagify has three main options: development mode, debug and stringfy.
 - stringfy: Makes integration with older systems possible by always returning a string instead of automatic JSON.parse.
 
 ## Contributing
-The library is in the testing phase and may be modified. You can contribute by reporting errors or suggesting new features [HERE](https://github.com/enbot/storagify/issues).
+The library is in the testing phase and may be modified. You can contribute by reporting errors or suggesting new features [HERE](https://github.com/notelho/storagify/issues).
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

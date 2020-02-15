@@ -4,6 +4,10 @@ Storagify is a open-source front-end library that builds a superset based on bro
 
 Official documentation will be released soon.
 
+# Attention
+
+This library is in development and will be officially released in version 2.0.0
+
 ## Installation
 
 Use the node package manager [NPM](https://www.npmjs.com/package/storagify) to install it.

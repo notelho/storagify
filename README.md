@@ -2,8 +2,11 @@
 
 Storagify is a open-source front-end library that builds a superset based on browser storages, localStorage and sessionStorage. It offers additional functions and encryption automatically, as well as several options for development, integration and especially compatibility.
 
-
 Official documentation will be released soon.
+
+# Attention
+
+This library is in development and will be officially released in version 2.0.0
 
 ## Installation
 

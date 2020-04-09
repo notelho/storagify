@@ -7,9 +7,10 @@
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "prepare": "npm run build",
-    "build": "tsc",
-    "test": "jest --verbose"
+    "start": "npm run watch",
+    "test": "jest --verbose",
+    "watch": "nodemon -e ts -w ./src -x npm run build",
+    "build": "npx tsc"
   },
   "files": [
     "lib"
@@ -34,17 +35,24 @@
   },
   "homepage": "https://github.com/notelho/storagify#readme",
   "keywords": [
+    "storagify",
+    "session",
+    "storage",
     "localStorage",
     "sessionStorage",
-    "storage",
-    "session",
-    "storagify",
     "superset"
   ],
   "devDependencies": {
     "@types/jest": "^21.1.5",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "jest": "^21.2.1",
+    "nodemon": "^2.0.3",
+    "npx": "^10.2.2",
     "ts-jest": "^21.1.4",
     "typescript": "^2.6.1"
+  },
+  "dependencies": {
+    "cryptojs": "^2.5.3"
   }
 }

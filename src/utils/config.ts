@@ -1,4 +1,4 @@
-export const consts = {
+export const config = {
 
     devkey: '__storagify__',
 
@@ -11,4 +11,4 @@ export const consts = {
 
 }
 
-// configs
+export default config

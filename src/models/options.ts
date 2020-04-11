@@ -1,11 +1,11 @@
 export interface Options {
 
-    development?: boolean
+    development?: boolean;
 
-    debug?: boolean
+    debug?: boolean;
 
-    stringify?: boolean
+    stringify?: boolean;
 
 }
 
-export default Options
+export default Options;

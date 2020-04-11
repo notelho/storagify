@@ -24,3 +24,5 @@ export function config(instance, str, callback) {
     return ret
 
 }
+
+// describer

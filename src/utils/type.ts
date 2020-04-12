@@ -1,4 +1,4 @@
-export function type(instance: Storage) {
+export function type(instance: Storage): string {
 
     const local = 'local storage';
     const session = 'session storage';
@@ -9,4 +9,7 @@ export function type(instance: Storage) {
         return session;
     }
 
+    return '';
 }
+
+export default type;

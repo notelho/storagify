@@ -1,36 +1,45 @@
-// export function describer(
+import type from '../utils/type';
 
-//     instance: Storage,
+export function describer(instance: Storage, action: string, callback?: Function): any {
 
-//     action: string,
+    let recall = undefined;
 
-//     callback?: Function
+    if (instance.env().debug) {
 
-// ) {
+        const flag: string = '{{instance}}';
+        const name: string = type(instance);
+        const message: string = action.replace(flag, name);
 
-//     let ret = undefined
+        console.warn(message);
+    }
 
-//     if (instance['__debug'])
-//         console.warn(action)
+    if (callback) {
 
-//     if (callback) {
+        try {
 
-//         try {
-//             ret = callback()
+            recall = callback();
 
-//             if (
-//                 instance['__stringfy'] &&
-//                 ret && typeof ret !== 'object'
-//             ) ret = JSON.stringify(ret)
+            if (recall) {
 
-//         } catch (err) {
+                const stringify = instance.env().stringify;
 
-//             console.warn('Something went wrong. This is probably a key conflict error. Make sure you always boot with the same key.')
+                const isString = typeof recall === 'string';
 
-//         }
+                if (stringify && !isString) {
+                    recall = JSON.stringify(recall);
+                }
 
-//     }
+            }
 
-//     return ret
+        } catch (error) {
 
-// }
+            console.warn(error);
+
+        }
+
+    }
+
+    return recall;
+}
+
+export default describer;

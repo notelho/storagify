@@ -22,35 +22,23 @@ export class Storage {
         const debug = options.debug || false;
 
         this._env = new Environment(key, development, debug, stringify);
-
     }
 
     public base() {
-
         const env = this._env;
-
         const base = new Base();
-
         base.start(env);
-
     }
 
     public proto() {
-
         const env = this._env;
-
         const proto = new Proto();
-
         proto.start(env);
-
     }
 
     public start() {
-
         localStorage.start();
-
         sessionStorage.start();
-
     }
 
 }

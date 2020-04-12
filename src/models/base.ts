@@ -2,7 +2,6 @@ import { Encoder } from '../models/encoder.js'
 import { Development } from '../models/development.js'
 import { Production } from '../models/production.js'
 
-
 import Environment from './environment.js'
 
 import config from '../utils/config'
@@ -22,7 +21,11 @@ export class Base {
         }
 
         Storage.prototype['env'] = function () {
-            if (this[`__environment`].development) {
+            return this[`__environment`];
+        }
+
+        Storage.prototype['worker'] = function () {
+            if (this.env().development) {
                 return this[`__development`];
             } else {
                 return this[`__production`];

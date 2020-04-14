@@ -11,8 +11,8 @@ export function init(key: string, options: Options = {}): void {
 
             storage = new Storage(key, options);
 
-            storage.base();
-            storage.proto();
+            storage.save();
+            storage.create();
             storage.start();
 
         } else {

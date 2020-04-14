@@ -51,3 +51,13 @@
 //     }
 
 // }
+
+export class Encoder {
+
+    constructor(key: string) {
+
+    }
+
+}
+
+export default Encoder

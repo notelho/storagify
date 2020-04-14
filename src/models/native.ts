@@ -1,12 +1,11 @@
-import { Encoder } from '../models/encoder.js'
-import { Development } from '../models/development.js'
-import { Production } from '../models/production.js'
+import Environment from './environment.js';
+import Development from './development.js';
+import Production from './production.js';
+import Encoder from './encoder.js';
 
-import Environment from './environment.js'
+import config from '../utils/config';
 
-import config from '../utils/config'
-
-export class Base {
+export class Native {
 
     start(env: Environment) {
 
@@ -14,10 +13,11 @@ export class Base {
         Storage.prototype[`__development`] = new Development();
         Storage.prototype[`__production`] = new Production();
         Storage.prototype[`__environment`] = env;
-        Storage.prototype[`__base`] = {};
+        Storage.prototype[`__native`] = {};
 
         for (let def of config.defaults) {
-            Storage.prototype[`__base`][`_${def}`] = Storage.prototype[def];
+            Storage.prototype[`__native`][def] = Storage.prototype[def];
+            // rever limpeza de chamadas nativas quanto rodar os testes
         }
 
         Storage.prototype['env'] = function () {
@@ -36,4 +36,4 @@ export class Base {
 
 }
 
-export default Base
+export default Native

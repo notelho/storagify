@@ -1,7 +1,7 @@
 import Environment from "./environment";
 import Options from "./options";
 import Proto from "./proto";
-import Base from "./base";
+import Native from "./native";
 
 export class Storage {
 
@@ -24,13 +24,13 @@ export class Storage {
         this._env = new Environment(key, development, debug, stringify);
     }
 
-    public base() {
+    public save() {
         const env = this._env;
-        const base = new Base();
-        base.start(env);
+        const native = new Native();
+        native.start(env);
     }
 
-    public proto() {
+    public create() {
         const env = this._env;
         const proto = new Proto();
         proto.start(env);

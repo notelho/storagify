@@ -1,5 +1,5 @@
 import Encoder from "./encoder";
-import Calls from "./calls";
+import NativeFunctions from "./native-functions";
 
 export abstract class Worker {
 
@@ -24,8 +24,10 @@ export abstract class Worker {
     protected from(instance: Storage) {
 
         const encoder: Encoder = instance['__encoder'];
-        const native: Calls = instance['__native'];
-        const calls: Calls = {
+
+        const native: NativeFunctions = instance['__native'];
+
+        const calls: NativeFunctions = {
 
             setItem: function (key: string, value: any) {
                 return native.setItem.call(instance, key, value);

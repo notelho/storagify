@@ -1,4 +1,4 @@
-export class Environment {
+export class StorageEnvironment {
 
     private _key: string;
     private _development: boolean;
@@ -41,4 +41,4 @@ export class Environment {
 
 }
 
-export default Environment;
+export default StorageEnvironment;

@@ -1,9 +1,9 @@
-import Parsed from '../models/parsed';
+// import Parsed from '../models/parsed';
 
-import describer from './describer';
-import parser from './parser';
+// import describer from './describer';
+// import parser from './parser';
 
-export const defaults: any = {
+export const nativeDefaults: any = {
 
     list: function () {
 
@@ -107,4 +107,4 @@ export const defaults: any = {
 
 }
 
-export default defaults;
+export default nativeDefaults;

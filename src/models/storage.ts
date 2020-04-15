@@ -1,13 +1,13 @@
-import Environment from "./environment";
-import Options from "./options";
-import Proto from "./proto";
-import Native from "./native";
+import StorageEnvironment from "./storage-environment";
+import StorageOptions from "./storage-options";
+import PrototypeInstace from "./prototype-instance";
+import PrototypeFunction from "./prototype-function";
 
 export class Storage {
 
-    private _env: Environment;
+    private _env: StorageEnvironment;
 
-    constructor(key: string, options: Options) {
+    constructor(key: string, options: StorageOptions) {
 
         if (!localStorage || !sessionStorage) {
             throw new Error('Storage instance not found');
@@ -21,19 +21,19 @@ export class Storage {
         const stringify = options.stringify || false;
         const debug = options.debug || false;
 
-        this._env = new Environment(key, development, debug, stringify);
-    }
-
-    public save() {
-        const env = this._env;
-        const native = new Native();
-        native.start(env);
+        this._env = new StorageEnvironment(key, development, debug, stringify);
     }
 
     public create() {
         const env = this._env;
-        const proto = new Proto();
-        proto.start(env);
+        const prototypeInstace = new PrototypeInstace();
+        prototypeInstace.start(env);
+    }
+
+    public save() {
+        const env = this._env;
+        const prototypeFunction = new PrototypeFunction();
+        prototypeFunction.start(env);
     }
 
     public start() {

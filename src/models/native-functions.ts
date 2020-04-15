@@ -1,12 +1,12 @@
 export interface NativeFunctions {
 
-    setItem: Function
+    setItem: Function;
 
-    getItem: Function
+    getItem: Function;
 
-    removeItem: Function
+    removeItem: Function;
 
-    clear: Function
+    clear: Function;
 
 }
 

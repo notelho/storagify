@@ -1,5 +1,3 @@
-// import type from '../utils/type';
-
 export function describer(instance: Storage, action: string, callback?: Function): any {
 
     let recall = undefined;

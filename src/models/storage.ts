@@ -17,11 +17,11 @@ export class Storage {
             throw new Error('String key not found');
         }
 
-        const encryption = !options.development || true;
+        const development = options.development || false;
         const stringify = options.stringify || false;
         const debug = options.debug || false;
 
-        this._env = new Environment(key, encryption, debug, stringify);
+        this._env = new Environment(key, development, debug, stringify);
     }
 
     public save() {

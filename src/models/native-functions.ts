@@ -1,4 +1,4 @@
-export interface Calls {
+export interface NativeFunctions {
 
     setItem: Function
 
@@ -10,4 +10,4 @@ export interface Calls {
 
 }
 
-export default Calls;
+export default NativeFunctions;

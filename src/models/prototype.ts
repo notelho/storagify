@@ -1,0 +1,1 @@
+// interface x { start ( env : Env ) : Storage }

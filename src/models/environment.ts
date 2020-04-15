@@ -4,10 +4,11 @@ export class Environment {
     private _development: boolean;
     private _debug: boolean;
     private _stringify: boolean;
+    private _devkey: string;
 
     constructor(
         key: string,
-        development: boolean = false,
+        development: boolean = true,
         debug: boolean = false,
         stringify: boolean = false
     ) {
@@ -15,6 +16,7 @@ export class Environment {
         this._development = development;
         this._debug = debug;
         this._stringify = stringify;
+        this._devkey = '__storagify__';
     }
 
     public get key(): string {
@@ -31,6 +33,10 @@ export class Environment {
 
     public get stringify(): boolean {
         return this._stringify;
+    }
+
+    public get devkey(): string {
+        return this._devkey;
     }
 
 }

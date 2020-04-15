@@ -1,14 +1,14 @@
-export const config = {
+// export const config = {
 
-    devkey: '__storagify__',
+    
 
-    defaults: [
-        'getItem',
-        'setItem',
-        'removeItem',
-        'clear'
-    ]
+//     // defaults: [
+//     //     'getItem',
+//     //     'setItem',
+//     //     'removeItem',
+//     //     'clear'
+//     // ]
 
-}
+// }
 
-export default config;
+// export default config;

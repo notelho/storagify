@@ -25,7 +25,7 @@ export abstract class Worker {
 
         const encoder: Encoder = instance['__encoder'];
         const native: Calls = instance['__native'];
-        const calls = {
+        const calls: Calls = {
 
             setItem: function (key: string, value: any) {
                 return native.setItem.call(instance, key, value);
@@ -49,3 +49,5 @@ export abstract class Worker {
     }
 
 }
+
+export default Worker;

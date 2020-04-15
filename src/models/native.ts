@@ -17,11 +17,25 @@ export class Native {
 
         for (let def of config.defaults) {
             Storage.prototype[`__native`][def] = Storage.prototype[def];
-            // rever limpeza de chamadas nativas quanto rodar os testes
         }
 
         Storage.prototype['env'] = function () {
             return this[`__environment`];
+        }
+
+        Storage.prototype['type'] = function (instance: Storage): string {
+
+            const local = 'local storage';
+            const session = 'session storage';
+
+            if (instance === localStorage) {
+                return local;
+            } else if (instance === sessionStorage) {
+                return session;
+            }
+
+            return '';
+
         }
 
         Storage.prototype['worker'] = function () {

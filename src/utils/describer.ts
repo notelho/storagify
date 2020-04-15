@@ -1,4 +1,4 @@
-import type from '../utils/type';
+// import type from '../utils/type';
 
 export function describer(instance: Storage, action: string, callback?: Function): any {
 
@@ -7,8 +7,8 @@ export function describer(instance: Storage, action: string, callback?: Function
     if (instance.env().debug) {
 
         const flag: string = '{{instance}}';
-        const name: string = type(instance);
-        const message: string = action.replace(flag, name);
+        const type: string = instance.type(instance);
+        const message: string = action.replace(flag, type);
 
         console.warn(message);
     }

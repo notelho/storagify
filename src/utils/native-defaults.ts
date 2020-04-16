@@ -1,6 +1,6 @@
 // import Parsed from '../models/parsed';
 
-// import describer from './describer';
+import describer from './describer';
 // import parser from './parser';
 
 export const nativeDefaults: any = {

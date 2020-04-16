@@ -13,10 +13,10 @@ export class StorageEnvironment {
         stringify: boolean = false
     ) {
         this._key = key;
+        this._devkey = '__storagify__';
         this._development = development;
         this._debug = debug;
         this._stringify = stringify;
-        this._devkey = '__storagify__';
     }
 
     public get key(): string {

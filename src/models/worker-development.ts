@@ -1,11 +1,7 @@
-
-
-import { converter } from '../conversor/converter.js'
-
+import * as conversor from '../conversor'
 
 import Worker from './worker'
 
-import config from '../utils/config'
 
 export class Development extends Worker {
 

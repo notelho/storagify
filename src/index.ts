@@ -1,9 +1,9 @@
-import Options from "./models/options";
+import StorageOptions from "./models/storage-options";
 import Storage from './models/storage';
 
 var storage: Storage | null = null;
 
-export function init(key: string, options: Options = {}): void {
+export function init(key: string, options: StorageOptions = {}): void {
 
     try {
 

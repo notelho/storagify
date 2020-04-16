@@ -1,27 +1,30 @@
-import Environment from './environment.js';
-import Development from './development.js';
-import Production from './production.js';
-
-import Encoder from './encoder.js';
-
+import StorageEnvironment from './storage-environment.js';
+import EncoderEncryptor from './encoder-encryptor';
+import EncoderParser from './encoder-parser';
+import WorkerDevelopment from './worker-development.js';
+import WorkerProduction from './worker-production.js';
+import Prototype from './prototype';
 import includes from '../utils/includes';
 
+export class PrototypeInstance implements Prototype {
 
-export class PrototypeInstance {
-
-    start(env: Environment) {
+    start(env: StorageEnvironment) {
 
         includes();
 
-        Storage.prototype[`__environment`] = env;
+        Storage.prototype[`[[environment]]`] = env;
 
-        Storage.prototype[`__encoder`] = new Encoder(env.key);
-        Storage.prototype[`__encoder`] = new Encoder(env.key);
+        Storage.prototype[`[[parser]]`] = new EncoderParser(env);
+        Storage.prototype[`[[encryptor]]`] = new EncoderEncryptor(env);
+        Storage.prototype[`[[development]]`] = new WorkerDevelopment();
+        Storage.prototype[`[[production]]`] = new WorkerProduction();
 
-        Storage.prototype[`__development`] = new Development();
-        Storage.prototype[`__production`] = new Production();
-
-        Storage.prototype[`__native`] = {};
+        Storage.prototype[`[[native]]`] = {};
+        Storage.prototype[`[[native]]`]['setItem'] = Storage.prototype['setItem'];
+        Storage.prototype[`[[native]]`]['getItem'] = Storage.prototype['getItem'];
+        Storage.prototype[`[[native]]`]['removeItem'] = Storage.prototype['removeItem'];
+        Storage.prototype[`[[native]]`]['clear'] = Storage.prototype['clear'];
+        Storage.prototype[`[[native]]`]['key'] = Storage.prototype['key'];
 
     }
 

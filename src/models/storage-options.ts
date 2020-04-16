@@ -1,4 +1,4 @@
-export interface Options {
+export interface StorageOptions {
 
     development?: boolean;
 
@@ -8,4 +8,4 @@ export interface Options {
 
 }
 
-export default Options;
+export default StorageOptions;

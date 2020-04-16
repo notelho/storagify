@@ -5,7 +5,7 @@ export class Production {
 
 }
 
-export default Production
+export default Production;
 
 
 

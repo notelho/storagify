@@ -1,11 +1,11 @@
 // import { Abstract } from './abstract.js'
 // import { converter } from '../utils/converter.js'
 
-export class Production {
+export class WorkerProduction {
 
 }
 
-export default Production;
+export default WorkerProduction;
 
 
 

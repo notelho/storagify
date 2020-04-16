@@ -12,16 +12,16 @@ export class PrototypeFunction implements Prototype {
             Storage.prototype[functionName] = nativeDefaults[functionName];
         }
 
-        Storage.prototype['env'] = function () {
-            return this[`[[environment]]`];
-        }
-
-        Storage.prototype['type'] = function (instance: Storage) {
-            if (instance === localStorage) {
+        Storage.prototype['type'] = function () {
+            if (this === localStorage) {
                 return 'local storage';
-            } else if (instance === sessionStorage) {
+            } else if (this === sessionStorage) {
                 return 'session storage';
             }
+        }
+
+        Storage.prototype['env'] = function () {
+            return this[`[[environment]]`];
         }
 
         Storage.prototype['worker'] = function () {

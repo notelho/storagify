@@ -3,7 +3,7 @@ import * as conversor from '../conversor'
 import Worker from './worker'
 
 
-export class Development extends Worker {
+export class WorkerDevelopment extends Worker {
 
     constructor() {
         super();
@@ -90,4 +90,4 @@ export class Development extends Worker {
 
 }
 
-export default Development;
+export default WorkerDevelopment;

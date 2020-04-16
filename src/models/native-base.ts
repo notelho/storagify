@@ -8,6 +8,8 @@ export interface NativeBase {
 
     clear(): void;
 
+    key(index: number): string | null;
+
 }
 
 export default NativeBase;

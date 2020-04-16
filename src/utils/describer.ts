@@ -1,4 +1,6 @@
-export function describer(instance: Storage, action: string, callback?: Function): any {
+import Storagify from "../models/storagify";
+
+export function describer(instance: Storagify, action: string, callback?: Function): any {
 
     let recall = undefined;
 

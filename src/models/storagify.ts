@@ -1,11 +1,17 @@
-import WorkerDevelopment from "./worker-development";
-import WorkerProduction from "./worker-production";
 import StorageEnvironment from "./storage-environment";
+import NativeBase from "./native-base";
 import EncoderParser from "./encoder-parser";
 import EncoderEncryptor from "./encoder-encryptor";
-import NativeBase from "./native-base";
+import Encoder from "./encoder";
+import WorkerDevelopment from "./worker-development";
+import WorkerProduction from "./worker-production";
+import Worker from "./worker";
 
-export interface Storagify {
+export interface Storagify extends Storage {
+
+    // ==================================================
+
+    readonly length: number;
 
     // ==================================================
 
@@ -31,16 +37,28 @@ export interface Storagify {
 
     clear(): void;
 
-    key(index: number): string | undefined;
+    key(index: number): string | null;
 
     // ==================================================
 
-    type(): 'local storage' | 'session storage';
+    list(instance: Storagify): string[];
+
+    when(key: string, instance: Storagify): Date;
+
+    start(instance: Storagify): string | null;
+
+    // ==================================================
 
     env(): StorageEnvironment;
 
+    type(): 'local storage' | 'session storage';
+
     worker(): Worker;
+
+    encoder(): Encoder;
 
     // ==================================================
 
 }
+
+export default Storagify;

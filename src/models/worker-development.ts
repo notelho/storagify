@@ -1,7 +1,6 @@
-import * as conversor from '../conversor'
-
 import Worker from './worker'
-
+import Storagify from './storagify';
+import * as conversor from '../conversor'
 
 export class WorkerDevelopment extends Worker {
 
@@ -9,7 +8,7 @@ export class WorkerDevelopment extends Worker {
         super();
     }
 
-    public get(key: string, instance: Storage): any {
+    public get(key: string, instance: Storagify): any {
 
         // const { calls } = this.from(instance);
 
@@ -18,10 +17,10 @@ export class WorkerDevelopment extends Worker {
         //             parsed = this._parse(value)
         //         return parsed.val
 
-        return
+        return ''
     }
 
-    public set(key: string, value: any, instance: Storage, timestamp?: number): void {
+    public set(key: string, value: any, instance: Storagify, timestamp?: number): void {
         //         const base = this._translate(instance).base
         //         if (!value)
         //             value = null
@@ -33,17 +32,17 @@ export class WorkerDevelopment extends Worker {
         //                 new Date().getTime()
         //         }
         //         base.setItem(key, JSON.stringify(value))
-        return
+
     }
 
-    public delete(key: string, instance: Storage): void {
+    public delete(key: string, instance: Storagify): void {
         //         this._translate(instance)
         //             .base
         //             .removeItem(`${consts.devkey}${key}`)
-        return
+
     }
 
-    public list(instance: Storage): string[] {
+    public list(instance: Storagify): string[] {
         //         return new Array(this._len(instance))
         //             .fill(false)
         //             .map((v, i) => i)
@@ -52,7 +51,7 @@ export class WorkerDevelopment extends Worker {
         return []
     }
 
-    public when(key: string, instance: Storage): Date {
+    public when(key: string, instance: Storagify): Date {
         //         const
         //             base = this._translate(instance).base,
         //             value = base.getItem(`${consts.devkey}${key}`),
@@ -61,14 +60,19 @@ export class WorkerDevelopment extends Worker {
         return new Date()
     }
 
-    public clear(instance: Storage): void {
+    public clear(instance: Storagify): void {
         //         this._translate(instance)
         //             .base
         //             .clear()
         return
     }
 
-    public start(instance: Storage): void {
+    public key(index: number, instance: Storagify): string | null {
+
+        return ''
+    }
+
+    public start(instance: Storagify): void {
         //         const
         //             { encoder, base } = this._translate(instance),
         //             keys = new Array(this._len(instance))
@@ -85,7 +89,7 @@ export class WorkerDevelopment extends Worker {
         //                 this.set(d.key, d.value, instance)
         //             }
         //         }
-        return
+
     }
 
 }

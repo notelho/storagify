@@ -1,27 +1,30 @@
 import Encoder from "./encoder";
 import NativeBase from "./native-base";
+import Storagify from "./storagify";
 
 export abstract class Worker {
 
-    public abstract get(key: string, instance: Storage): any;
+    public abstract get(key: string, instance: Storagify): any;
 
-    public abstract set(key: string, value: any, instance: Storage, timestamp?: number): void;
+    public abstract set(key: string, value: any, instance: Storagify, timestamp?: number): void;
 
-    public abstract delete(key: string, instance: Storage): void;
+    public abstract delete(key: string, instance: Storagify): void;
 
-    public abstract list(instance: Storage): string[];
+    public abstract list(instance: Storagify): string[];
 
-    public abstract when(key: string, instance: Storage): Date;
+    public abstract when(key: string, instance: Storagify): Date;
 
-    public abstract clear(instance: Storage): void;
+    public abstract clear(instance: Storagify): void;
 
-    public abstract start(instance: Storage): void;
+    public abstract key(index: number, instance: Storagify): string | null;
 
-    protected len(instance: Storage): number {
+    public abstract start(instance: Storagify): void
+
+    protected len(instance: Storagify): number {
         return instance.length;
     }
 
-    protected from(instance: Storage) {
+    protected from(instance: Storagify) {
 
         const encoder: Encoder = instance['[[encoder]]'];
 
@@ -43,6 +46,10 @@ export abstract class Worker {
 
             clear: function () {
                 return native.clear.call(instance);
+            },
+
+            key: function (index: number) {
+                return native.key.call(instance, index);
             },
 
         }

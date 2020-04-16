@@ -8,7 +8,7 @@ import includes from '../utils/includes';
 
 export class PrototypeInstance implements Prototype {
 
-    start(env: StorageEnvironment) {
+    start(env: StorageEnvironment): void {
 
         includes();
 
@@ -16,6 +16,7 @@ export class PrototypeInstance implements Prototype {
 
         Storage.prototype[`[[parser]]`] = new EncoderParser(env);
         Storage.prototype[`[[encryptor]]`] = new EncoderEncryptor(env);
+
         Storage.prototype[`[[development]]`] = new WorkerDevelopment();
         Storage.prototype[`[[production]]`] = new WorkerProduction();
 

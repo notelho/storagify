@@ -8,13 +8,6 @@
 
 // ): Parsed {
 
-//     return {
-
-//         value: '',
-
-//         timestamp: 1
-
-//     }
 
 // }
 
@@ -26,31 +19,37 @@ export class EncoderParser {
 
 
     when(str) {
-        // return this.av64x4.when(str)
+
     }
 
 
     hash(str) {
-        // return cryptojs.SHA1(sk + key)
+
     }
 
     value(str) {
-        // return AV.decode64(str)
+
     }
 
 
     encode(str, timestamp = null) {
 
-        // cryptojs.AES.encrypt(value, ak)
+
+        //     return {
+
+        //         value: '',
+
+        //         timestamp: 1
+
+        //     }
+
+
 
     }
 
 
     decode(str) {
 
-        // let d = cryptojs.AES.decrypt(value, ak)
-
-        //   return d.toString(cryptojs.enc.Utf8)
 
     }
 

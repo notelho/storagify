@@ -11,7 +11,6 @@ export function init(key: string, options: StorageOptions = {}): void {
 
             storage = new Storage(key, options);
 
-            storage.save();
             storage.create();
             storage.start();
 

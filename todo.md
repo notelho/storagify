@@ -1,12 +1,8 @@
 
-criação de interface pro storage
-
 transformar o dev e prod em workers que chamam externo
 
-custom instance storage interface
+aplicar a nova interface pras functions
 
-mv ou repenar native-defaults
+mv ou repensar native-defaults
 
 .key() ainda não foi feito
-
-getKey no env pro [[private]]

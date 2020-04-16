@@ -25,20 +25,25 @@ export class Storage {
     }
 
     public create() {
-        const env = this._env;
-        const prototypeInstace = new PrototypeInstace();
-        prototypeInstace.start(env);
-    }
 
-    public save() {
         const env = this._env;
+
+        const prototypeInstace = new PrototypeInstace();
+
         const prototypeFunction = new PrototypeFunction();
+
+        prototypeInstace.start(env);
+
         prototypeFunction.start(env);
+
     }
 
     public start() {
+
         localStorage.start();
+
         sessionStorage.start();
+
     }
 
 }

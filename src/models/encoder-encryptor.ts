@@ -11,7 +11,6 @@ export class EncoderEncryptor implements Encoder {
     constructor(env: StorageEnvironment) {
 
 
-
     }
 
 

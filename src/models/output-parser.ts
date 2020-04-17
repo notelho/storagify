@@ -1,4 +1,4 @@
-export interface OutputDevelopment {
+export interface OutputParser {
 
     value: any;
 
@@ -6,4 +6,4 @@ export interface OutputDevelopment {
 
 }
 
-export default OutputDevelopment;
+export default OutputParser;

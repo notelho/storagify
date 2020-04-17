@@ -1,58 +1,50 @@
-// encoder extends encoder
-
-// import Parsed from "../models/parsed";
-
-// export function parser(
-
-//     any: any,
-
-// ): Parsed {
-
-
-// }
 
 import StorageEnvironment from './storage-environment.js';
+import Encoder from './encoder';
+import OutputParser from './output-parser';
+import OutputEncryptor from './output-encryptor';
 
-export class EncoderParser {
+export class EncoderParser extends Encoder {
 
-    constructor(env: StorageEnvironment) { }
+    constructor(env: StorageEnvironment) {
+        super(env);
+    }
 
+    public when(input: OutputParser): Date {
 
-    when(str) {
+        const timestamp = input.timestamp;
+
+        const when = new Date(timestamp);
+
+        return when;
 
     }
 
+    public hash(input: string): string {
 
-    hash(str) {
-
-    }
-
-    value(str) {
+        return this._devkey + input;
 
     }
 
+    public encode(input: any): OutputParser {
 
-    encode(str, timestamp = null) {
+        const now = new Date();
 
+        const timestamp = now.getTime();
 
-        //     return {
+        const value = input;
 
-        //         value: '',
-
-        //         timestamp: 1
-
-        //     }
-
-
+        return { value, timestamp };
 
     }
 
+    public decode(input: OutputParser): any {
 
-    decode(str) {
+        const value = input.value;
 
+        return value;
 
     }
-
 
 }
 

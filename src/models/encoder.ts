@@ -1,14 +1,23 @@
+import StorageEnvironment from "./storage-environment";
+
 export abstract class Encoder {
 
-    abstract when(str: string): Date;
+    protected _key: string;
 
-    abstract hash(str: string): string;
+    protected _devkey: string;
 
-    abstract value(str: string): string;
+    constructor(env: StorageEnvironment) {
+        this._key = env.key;
+        this._devkey = env.devkey;
+    }
 
-    abstract encode(str: string, timestamp?: number): string;
+    public abstract when(input: any): Date;
 
-    abstract decode(str: string): string;
+    public abstract hash(input: any): string;
+
+    public abstract encode(input: any): any;
+
+    public abstract decode(input: any): any;
 
 }
 

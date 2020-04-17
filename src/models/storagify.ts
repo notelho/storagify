@@ -49,13 +49,13 @@ export interface Storagify extends Storage {
 
     // ==================================================
 
-    env(): StorageEnvironment;
-
     type(): 'local storage' | 'session storage';
+
+    encoder(type: 'encryptor' | 'parser'): Encoder;
 
     worker(): Worker;
 
-    encoder(): Encoder;
+    env(): StorageEnvironment;
 
     // ==================================================
 

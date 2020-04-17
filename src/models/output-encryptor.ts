@@ -1,3 +1,3 @@
-export type OutputProduction = string | '{{string}}%{{timestamp}}';
+export type OutputEncryptor = string | '{{string<Object>}}%{{timestamp}}';
 
-export default OutputProduction;
+export default OutputEncryptor;

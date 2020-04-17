@@ -2,6 +2,7 @@ import describer from '../utils/describer';
 import StorageEnvironment from './storage-environment.js';
 import Prototype from './prototype';
 import Storagify from './storagify';
+import Encoder from './encoder';
 
 export class PrototypeFunction implements Prototype {
 
@@ -73,32 +74,31 @@ export class PrototypeFunction implements Prototype {
             });
         }
 
-        Storage.prototype['env'] = function () {
-            return this[`[[environment]]`];
-        }
-
-        Storage.prototype['type'] = function () {
+        Storage.prototype['type'] = function (): string {
             if (this === localStorage) {
                 return 'local storage';
-            } else if (this === sessionStorage) {
+            } else {
                 return 'session storage';
             }
         }
 
-        Storage.prototype['worker'] = function () {
-            if (this.env().development) {
-                return this[`[[development]]`];
+        Storage.prototype['encoder'] = function (type: 'encryptor' | 'parser'): Encoder {
+            if (type === 'encryptor') {
+                return this[`[[encryptor]]`];
             } else {
-                return this[`[[production]]`];
+                return this[`[[parser]]`];
             }
         }
 
-        Storage.prototype['encoder'] = function () {
+        Storage.prototype['worker'] = function (): Worker {
             if (this.env().development) {
-                return this[`[[parser]]`];
-            } else {
-                return this[`[[encryptor]]`];
+                return this[`[[development]]`];
             }
+            return this[`[[production]]`];
+        }
+
+        Storage.prototype['env'] = function (): StorageEnvironment {
+            return this[`[[environment]]`];
         }
 
     }

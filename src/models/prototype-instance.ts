@@ -1,9 +1,10 @@
 import StorageEnvironment from './storage-environment.js';
-import EncoderEncryptor from './encoder-encryptor';
-import EncoderParser from './encoder-parser';
 import WorkerDevelopment from './worker-development.js';
 import WorkerProduction from './worker-production.js';
+import Configurator from './configurator.js';
 import Prototype from './prototype';
+import Encoder from './encoder.js';
+import Parser from './parser.js';
 import includes from '../utils/includes';
 
 export class PrototypeInstance implements Prototype {
@@ -14,8 +15,8 @@ export class PrototypeInstance implements Prototype {
 
         Storage.prototype[`[[environment]]`] = env;
 
-        Storage.prototype[`[[parser]]`] = new EncoderParser(env);
-        Storage.prototype[`[[encryptor]]`] = new EncoderEncryptor(env);
+        Storage.prototype[`[[parser]]`] = new Parser(env);
+        Storage.prototype[`[[encoder]]`] = new Encoder(env);
 
         Storage.prototype[`[[development]]`] = new WorkerDevelopment();
         Storage.prototype[`[[production]]`] = new WorkerProduction();
@@ -26,6 +27,8 @@ export class PrototypeInstance implements Prototype {
         Storage.prototype[`[[native]]`]['removeItem'] = Storage.prototype['removeItem'];
         Storage.prototype[`[[native]]`]['clear'] = Storage.prototype['clear'];
         Storage.prototype[`[[native]]`]['key'] = Storage.prototype['key'];
+
+        Storage.prototype[`[[configurator]]`] = new Configurator();
 
     }
 

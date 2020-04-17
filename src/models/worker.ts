@@ -1,6 +1,7 @@
 import Encoder from "./encoder";
 import NativeBase from "./native-base";
 import Storagify from "./storagify";
+import Parser from "./parser";
 
 export abstract class Worker {
 
@@ -28,6 +29,8 @@ export abstract class Worker {
 
         const encoder: Encoder = instance['[[encoder]]'];
 
+        const parser: Parser = instance['[[parser]]'];
+
         const native: NativeBase = instance['[[native]]'];
 
         const calls: NativeBase = {
@@ -54,7 +57,7 @@ export abstract class Worker {
 
         }
 
-        return { encoder, calls };
+        return { encoder, parser, calls };
     }
 
 }

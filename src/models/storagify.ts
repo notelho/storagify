@@ -1,11 +1,10 @@
-import StorageEnvironment from "./storage-environment";
 import NativeBase from "./native-base";
-import EncoderParser from "./encoder-parser";
-import EncoderEncryptor from "./encoder-encryptor";
-import Encoder from "./encoder";
+import StorageEnvironment from "./storage-environment";
 import WorkerDevelopment from "./worker-development";
 import WorkerProduction from "./worker-production";
 import Worker from "./worker";
+import Parser from "./parser";
+import Encoder from "./encoder";
 
 export interface Storagify extends Storage {
 
@@ -17,9 +16,9 @@ export interface Storagify extends Storage {
 
     "[[environment]]": StorageEnvironment;
 
-    "[[parser]]": EncoderParser;
+    "[[parser]]": Parser;
 
-    "[[encryptor]]": EncoderEncryptor;
+    "[[encoder]]": Encoder;
 
     "[[development]]": WorkerDevelopment;
 
@@ -45,17 +44,7 @@ export interface Storagify extends Storage {
 
     when(key: string, instance: Storagify): Date;
 
-    start(instance: Storagify): string | null;
-
-    // ==================================================
-
-    type(): 'local storage' | 'session storage';
-
-    encoder(type: 'encryptor' | 'parser'): Encoder;
-
-    worker(): Worker;
-
-    env(): StorageEnvironment;
+    start(instance: Storagify): void;
 
     // ==================================================
 

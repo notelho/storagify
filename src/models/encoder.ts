@@ -1,23 +1,49 @@
+// import * as cryptojs from 'crypto-js';
+// import StorageEnvironment from './storage-environment';
+// import Encoder from './encoder';
+// import OutputParser from './output-parser';
+// import OutputEncryptor from './output-encryptor';
+
 import StorageEnvironment from "./storage-environment";
 
-export abstract class Encoder {
+export class Encoder {
 
-    protected _key: string;
+    private _key: string;
 
-    protected _devkey: string;
+    private _devkey: string;
 
     constructor(env: StorageEnvironment) {
         this._key = env.key;
         this._devkey = env.devkey;
     }
 
-    public abstract when(input: any): Date;
+    public when(input: OutputEncryptor): Date {
+        // return this.av64x4.when(str)
+        return new Date()
+    }
 
-    public abstract hash(input: any): string;
+    public hash(str: string): string {
+        // return cryptojs.SHA1(sk + key)7
 
-    public abstract encode(input: any): any;
+        return ''
+    }
 
-    public abstract decode(input: any): any;
+    public encode(input: OutputParser): OutputEncryptor {
+        // cryptojs.AES.encrypt(value, ak)
+
+        return ''
+    }
+
+    public decode(input: OutputEncryptor): OutputParser {
+
+        // let decrypted = cryptojs.AES.decrypt(value, ak)
+
+        //   return d.toString(cryptojs.enc.Utf8)
+
+        return faeafe
+
+    }
+
 
 }
 

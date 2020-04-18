@@ -1,49 +1,34 @@
-// import * as cryptojs from 'crypto-js';
-// import StorageEnvironment from './storage-environment';
-// import Encoder from './encoder';
-// import OutputParser from './output-parser';
-// import OutputEncryptor from './output-encryptor';
-
 import StorageEnvironment from "./storage-environment";
+import * as cryptojs from 'crypto-js';
 
 export class Encoder {
 
     private _key: string;
 
-    private _devkey: string;
-
     constructor(env: StorageEnvironment) {
         this._key = env.key;
-        this._devkey = env.devkey;
-    }
-
-    public when(input: OutputEncryptor): Date {
-        // return this.av64x4.when(str)
-        return new Date()
     }
 
     public hash(str: string): string {
-        // return cryptojs.SHA1(sk + key)7
-
-        return ''
+        const key = this._key;
+        const hash = cryptojs.SHA1(str, key);
+        const encoded = cryptojs.enc.Utf8.stringify(hash);
+        return encoded;
     }
 
-    public encode(input: OutputParser): OutputEncryptor {
-        // cryptojs.AES.encrypt(value, ak)
-
-        return ''
+    public encode(str: string): string {
+        const key = this._key;
+        const encrypted = cryptojs.SHA1(str, key);
+        const encoded = cryptojs.enc.Utf8.stringify(encrypted);
+        return encoded;
     }
 
-    public decode(input: OutputEncryptor): OutputParser {
-
-        // let decrypted = cryptojs.AES.decrypt(value, ak)
-
-        //   return d.toString(cryptojs.enc.Utf8)
-
-        return faeafe
-
+    public decode(str: string): string {
+        const key = this._key;
+        const decrypted = cryptojs.AES.decrypt(str, key);
+        const encoded = cryptojs.enc.Utf8.stringify(decrypted);
+        return encoded;
     }
-
 
 }
 

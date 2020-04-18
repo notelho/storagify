@@ -15,9 +15,10 @@ export class PrototypeInstance implements Prototype {
 
         Storage.prototype[`[[environment]]`] = env;
 
-        Storage.prototype[`[[parser]]`] = new Parser(env);
         Storage.prototype[`[[encoder]]`] = new Encoder(env);
+        Storage.prototype[`[[parser]]`] = new Parser(env);
 
+        Storage.prototype[`[[configurator]]`] = new Configurator();
         Storage.prototype[`[[development]]`] = new WorkerDevelopment();
         Storage.prototype[`[[production]]`] = new WorkerProduction();
 
@@ -27,8 +28,6 @@ export class PrototypeInstance implements Prototype {
         Storage.prototype[`[[native]]`]['removeItem'] = Storage.prototype['removeItem'];
         Storage.prototype[`[[native]]`]['clear'] = Storage.prototype['clear'];
         Storage.prototype[`[[native]]`]['key'] = Storage.prototype['key'];
-
-        Storage.prototype[`[[configurator]]`] = new Configurator();
 
     }
 

@@ -18,7 +18,7 @@ export class PrototypeFunction implements Prototype {
             return describer(instance, action, function () {
                 return getWorker(instance).list(instance);
             });
-        }
+        };
 
         Storage.prototype['when'] = function (key: string): Date {
             const instance = <Storagify>this;
@@ -26,7 +26,7 @@ export class PrototypeFunction implements Prototype {
             return describer(instance, action, function () {
                 return getWorker(instance).when(key, instance);
             });
-        }
+        };
 
         Storage.prototype['start'] = function (): void {
             const instance = <Storagify>this;
@@ -34,7 +34,7 @@ export class PrototypeFunction implements Prototype {
             return describer(instance, action, function () {
                 return getWorker(instance).start(instance);
             });
-        }
+        };
 
         // =====================================================================================
 
@@ -44,7 +44,7 @@ export class PrototypeFunction implements Prototype {
             return describer(instance, action, function () {
                 return getWorker(instance).get(key, instance);
             });
-        }
+        };
 
         Storage.prototype['setItem'] = function (key: string, value: any): void {
             const instance = <Storagify>this;
@@ -52,7 +52,7 @@ export class PrototypeFunction implements Prototype {
             return describer(instance, action, function () {
                 return getWorker(instance).set(key, value, instance);
             });
-        }
+        };
 
         Storage.prototype['removeItem'] = function (key: string): void {
             const instance = <Storagify>this;
@@ -60,7 +60,7 @@ export class PrototypeFunction implements Prototype {
             return describer(instance, action, function () {
                 return getWorker(instance).delete(key, instance);
             });
-        }
+        };
 
         Storage.prototype['clear'] = function (): void {
             const instance = <Storagify>this;
@@ -68,7 +68,7 @@ export class PrototypeFunction implements Prototype {
             return describer(instance, action, function () {
                 return getWorker(instance).clear(instance);
             });
-        }
+        };
 
         Storage.prototype['key'] = function (index: number): string | null {
             const instance = <Storagify>this;
@@ -76,7 +76,7 @@ export class PrototypeFunction implements Prototype {
             return describer(instance, action, function () {
                 return getWorker(instance).key(index, instance);
             });
-        }
+        };
 
         // =====================================================================================
 

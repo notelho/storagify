@@ -1,24 +1,45 @@
 import Encoder from "./encoder";
 import StorageEnvironment from "./storage-environment";
 
-
 export class Configurator {
+
+    private _key: string = '5c5a0bf45e5dd45f1eb610c1d98d7d5c';
+
+    private _encoder: Encoder;
 
     constructor() {
 
-        const privateEnvironment = new StorageEnvironment()
+        const key = this._key;
+        const env = new StorageEnvironment(key);
+        const encoder = new Encoder(env);
 
-        const privateEncoder = new Encoder()
+        this._encoder = encoder;
+    }
 
-        private key = __config
+    public create() {
+
+        // set __config
+
+        // set env
+
+        // set empty[]
 
     }
 
-    update ( key : string   ) {
+    public update(key: string, value: string, timestamp: number) {
 
     }
 
-    env  ( env ) {
+    public when(key: string): Date {
+        // return this.av64x4.when(str)
+        // return new Date()
+    }
+
+    env(env) {
+
+    }
+
+    check() {
 
     }
 

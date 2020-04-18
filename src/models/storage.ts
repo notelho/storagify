@@ -2,6 +2,7 @@ import StorageEnvironment from "./storage-environment";
 import StorageOptions from "./storage-options";
 import PrototypeInstace from "./prototype-instance";
 import PrototypeFunction from "./prototype-function";
+import Storagify from "./storagify";
 
 export class Storage {
 
@@ -40,9 +41,9 @@ export class Storage {
 
     public start() {
 
-        localStorage.start();
+        <Storagify>localStorage.start();
 
-        sessionStorage.start();
+        <Storagify>sessionStorage.start();
 
     }
 

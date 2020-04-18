@@ -2,6 +2,7 @@ import Encoder from "./encoder";
 import NativeBase from "./native-base";
 import Storagify from "./storagify";
 import Parser from "./parser";
+import Configurator from "./configurator";
 
 export abstract class Worker {
 
@@ -19,7 +20,7 @@ export abstract class Worker {
 
     public abstract key(index: number, instance: Storagify): string | null;
 
-    public abstract start(instance: Storagify): void
+    public abstract start(instance: Storagify): void;
 
     protected len(instance: Storagify): number {
         return instance.length;
@@ -32,6 +33,8 @@ export abstract class Worker {
         const parser: Parser = instance['[[parser]]'];
 
         const native: NativeBase = instance['[[native]]'];
+
+        const configurator: Configurator = instance['[[configurator]]'];
 
         const calls: NativeBase = {
 
@@ -55,9 +58,9 @@ export abstract class Worker {
                 return native.key.call(instance, index);
             },
 
-        }
+        };
 
-        return { encoder, parser, calls };
+        return { encoder, parser, calls, configurator, native };
     }
 
 }

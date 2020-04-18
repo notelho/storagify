@@ -8,3 +8,7 @@ mv ou repensar native-defaults
 .key() ainda não foi feito
 
 __config__
+
+mudar as instance pra sempre primeira posição
+
+configurator native calls update

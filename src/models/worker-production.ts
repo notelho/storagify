@@ -5,7 +5,7 @@ import * as conversor from '../conversor'
 export class WorkerProduction extends Worker {
 
     constructor() {
-        super()
+        super();
     }
 
     public get(instance: Storagify, key: string): any {
@@ -49,7 +49,9 @@ export class WorkerProduction extends Worker {
     }
 
     public clear(instance: Storagify): void {
+
         // this._translate(instance).base.clear()
+
     }
 
     public key(instance: Storagify, index: number): string | null {

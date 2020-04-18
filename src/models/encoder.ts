@@ -1,12 +1,11 @@
-import StorageEnvironment from "./storage-environment";
 import * as cryptojs from 'crypto-js';
 
 export class Encoder {
 
     private _key: string;
 
-    constructor(env: StorageEnvironment) {
-        this._key = env.key;
+    constructor(key: string) {
+        this._key = key;
     }
 
     public hash(str: string): string {

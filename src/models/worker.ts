@@ -28,13 +28,13 @@ export abstract class Worker {
 
     protected from(instance: Storagify) {
 
-        const encoder: Encoder = instance['[[encoder]]'];
+        const encoder: Encoder = instance["[[encoder]]"];
 
-        const parser: Parser = instance['[[parser]]'];
+        const parser: Parser = instance["[[parser]]"];
 
-        const native: NativeBase = instance['[[native]]'];
+        const native: NativeBase = instance["[[native]]"];
 
-        const configurator: Configurator = instance['[[configurator]]'];
+        const configurator: Configurator = instance["[[configurator]]"];
 
         const calls: NativeBase = {
 

@@ -11,12 +11,11 @@ export class WorkerDevelopment extends Worker {
     public get(instance: Storagify, key: string): any {
 
         const { calls, parser } = this.from(instance);
-
         const value = calls.getItem(key);
-
         const parsed = parser.parse(value);
 
         return parsed;
+
     }
 
     public set(instance: Storagify, key: string, value: any, timestamp?: number): void {
@@ -66,17 +65,18 @@ export class WorkerDevelopment extends Worker {
 
     public key(instance: Storagify, index: number): string | null {
 
-        return ''
+        return this.from(instance).calls.key(index);
+
     }
 
     public start(instance: Storagify): void {
 
-        const { configurator } = this.from(instance);
+        const { configurator, encoder, calls } = this.from(instance);
 
         configurator.start(instance);
 
         //         const
-        //             { encoder, base } = this._translate(instance),
+
         //             keys = new Array(this._len(instance))
         //                 .fill(false)
         //                 .map((v, i) => i)

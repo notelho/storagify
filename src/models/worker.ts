@@ -6,19 +6,19 @@ import Configurator from "./configurator";
 
 export abstract class Worker {
 
-    public abstract get(key: string, instance: Storagify): any;
+    public abstract get(instance: Storagify, key: string): any;
 
-    public abstract set(key: string, value: any, instance: Storagify, timestamp?: number): void;
+    public abstract set(instance: Storagify, key: string, value: any, timestamp?: number): void;
 
-    public abstract delete(key: string, instance: Storagify): void;
+    public abstract delete(instance: Storagify, key: string): void;
 
     public abstract list(instance: Storagify): string[];
 
-    public abstract when(key: string, instance: Storagify): Date;
+    public abstract when(instance: Storagify, key: string): Date;
 
     public abstract clear(instance: Storagify): void;
 
-    public abstract key(index: number, instance: Storagify): string | null;
+    public abstract key(instance: Storagify, index: number): string | null;
 
     public abstract start(instance: Storagify): void;
 

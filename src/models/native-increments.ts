@@ -4,7 +4,7 @@ export interface NativeIncrements {
 
     list(instance: Storagify): string[];
 
-    when(key: string, instance: Storagify): Date;
+    when(instance: Storagify, key: string): Date;
 
     start(instance: Storagify): string | null;
 

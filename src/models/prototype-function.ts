@@ -24,7 +24,7 @@ export class PrototypeFunction implements Prototype {
             const instance = <Storagify>this;
             const action: string = `Returning creation date of ${key} in {{instance}}..`;
             return describer(instance, action, function () {
-                return getWorker(instance).when(key, instance);
+                return getWorker(instance).when(instance, key);
             });
         };
 
@@ -42,7 +42,7 @@ export class PrototypeFunction implements Prototype {
             const instance = <Storagify>this;
             const action: string = `Returning value of ${key} in {{instance}}..`;
             return describer(instance, action, function () {
-                return getWorker(instance).get(key, instance);
+                return getWorker(instance).get(instance, key);
             });
         };
 
@@ -50,7 +50,7 @@ export class PrototypeFunction implements Prototype {
             const instance = <Storagify>this;
             const action: string = `Setting value of ${key} in {{instance}}..`;
             return describer(instance, action, function () {
-                return getWorker(instance).set(key, value, instance);
+                return getWorker(instance).set(instance, key, value);
             });
         };
 
@@ -58,7 +58,7 @@ export class PrototypeFunction implements Prototype {
             const instance = <Storagify>this;
             const action: string = `Removing ${key} from {{instance}}..`;
             return describer(instance, action, function () {
-                return getWorker(instance).delete(key, instance);
+                return getWorker(instance).delete(instance, key);
             });
         };
 
@@ -74,7 +74,7 @@ export class PrototypeFunction implements Prototype {
             const instance = <Storagify>this;
             const action: string = `Looking for a key at index ${index} in {{instance}}..`;
             return describer(instance, action, function () {
-                return getWorker(instance).key(index, instance);
+                return getWorker(instance).key(instance, index);
             });
         };
 

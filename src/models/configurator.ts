@@ -1,5 +1,6 @@
 import Encoder from "./encoder";
 import StorageEnvironment from "./storage-environment";
+import Storagify from "./storagify";
 
 export class Configurator {
 
@@ -8,15 +9,13 @@ export class Configurator {
     private _encoder: Encoder;
 
     constructor() {
-
         const key = this._key;
         const env = new StorageEnvironment(key);
         const encoder = new Encoder(env);
-
         this._encoder = encoder;
     }
 
-    public create() {
+    public start(instance: Storagify) {
 
         // set __config
 
@@ -32,15 +31,7 @@ export class Configurator {
 
     public when(key: string): Date {
         // return this.av64x4.when(str)
-        // return new Date()
-    }
-
-    env(env) {
-
-    }
-
-    check() {
-
+        return new Date()
     }
 
 }

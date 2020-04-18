@@ -8,19 +8,18 @@ export class WorkerDevelopment extends Worker {
         super();
     }
 
-    public get(key: string, instance: Storagify): any {
+    public get(instance: Storagify, key: string): any {
 
-        // const { calls } = this.from(instance);
+        const { calls, parser } = this.from(instance);
 
-        //         const base = this._translate(instance).base,
-        //             value = base.getItem(`${consts.devkey}${key}`),
-        //             parsed = this._parse(value)
-        //         return parsed.val
+        const value = calls.getItem(key);
 
-        return ''
+        const parsed = parser.parse(value);
+
+        return parsed;
     }
 
-    public set(key: string, value: any, instance: Storagify, timestamp?: number): void {
+    public set(instance: Storagify, key: string, value: any, timestamp?: number): void {
         //         const base = this._translate(instance).base
         //         if (!value)
         //             value = null
@@ -35,10 +34,9 @@ export class WorkerDevelopment extends Worker {
 
     }
 
-    public delete(key: string, instance: Storagify): void {
-        //         this._translate(instance)
-        //             .base
-        //             .removeItem(`${consts.devkey}${key}`)
+    public delete(instance: Storagify, key: string): void {
+
+        this.from(instance).calls.removeItem(key);
 
     }
 
@@ -51,7 +49,7 @@ export class WorkerDevelopment extends Worker {
         return []
     }
 
-    public when(key: string, instance: Storagify): Date {
+    public when(instance: Storagify, key: string): Date {
         //         const
         //             base = this._translate(instance).base,
         //             value = base.getItem(`${consts.devkey}${key}`),
@@ -61,18 +59,22 @@ export class WorkerDevelopment extends Worker {
     }
 
     public clear(instance: Storagify): void {
-        //         this._translate(instance)
-        //             .base
-        //             .clear()
-        return
+
+        this.from(instance).calls.clear();
+
     }
 
-    public key(index: number, instance: Storagify): string | null {
+    public key(instance: Storagify, index: number): string | null {
 
         return ''
     }
 
     public start(instance: Storagify): void {
+
+        const { configurator } = this.from(instance);
+
+        configurator.start(instance);
+
         //         const
         //             { encoder, base } = this._translate(instance),
         //             keys = new Array(this._len(instance))

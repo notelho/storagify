@@ -1,64 +1,46 @@
 import StorageEnvironment from "./storage-environment";
-
-export class Parser {
-
-
-    constructor(env: StorageEnvironment) {
-
-    }
-
-}
-
-export default Parser;
-
-
 // import StorageEnvironment from './storage-environment.js';
 // import Encoder from './encoder';
 // import OutputParser from './output-parser';
 // import OutputEncryptor from './output-encryptor';
 
-// export class EncoderParser extends Encoder {
+export class Parser {
 
-//     constructor(env: StorageEnvironment) {
-//         super(env);
-//     }
+    private _stringfy: boolean;
 
-//     public when(input: OutputParser): Date {
+    constructor(env: StorageEnvironment) {
+        this._stringfy = env.stringify;
+    }
 
-//         const timestamp = input.timestamp;
+    public parse(value?: any): any {
+        try {
+            return JSON.parse(<string>value);
+        } catch (error) {
+            return value;
+        }
+    }
 
-//         const when = new Date(timestamp);
+    public stringfy(value?: any): string | void {
+        try {
+            return JSON.stringify(value);
+        } catch (error) {
+            return value;
+        }
+    }
 
-//         return when;
+    public apply(value?: any) {
 
-//     }
+        const stringfy = this._stringfy;
 
-//     public hash(input: string): string {
+        if (stringfy) {
 
-//         return this._devkey + input;
+            return this.stringfy(value);
 
-//     }
+        }
 
-//     public encode(input: any): OutputParser {
+        return value;
+    }
 
-//         const now = new Date();
+}
 
-//         const timestamp = now.getTime();
-
-//         const value = input;
-
-//         return { value, timestamp };
-
-//     }
-
-//     public decode(input: OutputParser): any {
-
-//         const value = input.value;
-
-//         return value;
-
-//     }
-
-// }
-
-// export default EncoderParser;
+export default Parser;

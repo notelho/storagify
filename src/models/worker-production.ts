@@ -8,7 +8,7 @@ export class WorkerProduction extends Worker {
         super()
     }
 
-    public get(key: string, instance: Storagify): any {
+    public get(instance: Storagify, key: string): any {
         // const
         //     { encoder, base } = this._translate(instance),
         //     value = base.getItem(encoder.hash(key)),
@@ -16,7 +16,7 @@ export class WorkerProduction extends Worker {
         // return this._parse(decoded)
     }
 
-    public set(key: string, value: any, instance: Storagify, timestamp?: number): void {
+    public set(instance: Storagify, key: string, value: any, timestamp?: number): void {
         // const { encoder, base } = this._translate(instance)
         // if (!value) value = "null"
         // if (typeof value !== 'string') value = JSON.stringify(value)
@@ -25,7 +25,7 @@ export class WorkerProduction extends Worker {
         // base.setItem(key, value)
     }
 
-    public delete(key: string, instance: Storagify): void {
+    public delete(instance: Storagify, key: string): void {
         // const { encoder, base } = this._translate(instance)
         // base.removeItem(encoder.hash(key))
     }
@@ -39,7 +39,7 @@ export class WorkerProduction extends Worker {
         return []
     }
 
-    public when(key: string, instance: Storagify): Date {
+    public when(instance: Storagify, key: string): Date {
         // const
         //     { encoder, base } = this._translate(instance),
         //     value = base.getItem(encoder.hash(key)),
@@ -52,7 +52,7 @@ export class WorkerProduction extends Worker {
         // this._translate(instance).base.clear()
     }
 
-    public key(index: number, instance: Storagify): string | null {
+    public key(instance: Storagify, index: number): string | null {
         return ''
     }
 

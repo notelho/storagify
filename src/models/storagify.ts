@@ -2,7 +2,6 @@ import NativeBase from "./native-base";
 import StorageEnvironment from "./storage-environment";
 import WorkerDevelopment from "./worker-development";
 import WorkerProduction from "./worker-production";
-import Worker from "./worker";
 import Parser from "./parser";
 import Encoder from "./encoder";
 
@@ -40,11 +39,11 @@ export interface Storagify extends Storage {
 
     // ==================================================
 
-    list(instance: Storagify): string[];
+    list(): string[];
 
-    when(key: string, instance: Storagify): Date;
+    when(key: string): Date;
 
-    start(instance: Storagify): void;
+    start(): void;
 
     // ==================================================
 

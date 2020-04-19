@@ -1,15 +1,9 @@
-import StorageEnvironment from "./storage-environment";
-// import StorageEnvironment from './storage-environment.js';
-// import Encoder from './encoder';
-// import OutputParser from './output-parser';
-// import OutputEncryptor from './output-encryptor';
-
 export class Parser {
 
     private _stringfy: boolean;
 
-    constructor(env: StorageEnvironment) {
-        this._stringfy = env.stringify;
+    constructor(stringify: boolean = true) {
+        this._stringfy = stringify;
     }
 
     public parse(value?: any): any {
@@ -22,7 +16,22 @@ export class Parser {
 
     public stringfy(value?: any): string | void {
         try {
+
+            const isString = typeof value === "string";
+            const isFunction = typeof value === 'function';
+            const isNull = value === null;
+            const isUndefined = value === undefined;
+
+            if (isString || isNull || isUndefined) {
+                throw new Error();
+            }
+
+            if (isFunction) {
+                value = "" + value;
+            }
+
             return JSON.stringify(value);
+
         } catch (error) {
             return value;
         }
@@ -33,9 +42,7 @@ export class Parser {
         const stringfy = this._stringfy;
 
         if (stringfy) {
-
             return this.stringfy(value);
-
         }
 
         return value;

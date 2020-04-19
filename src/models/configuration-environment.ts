@@ -1,13 +1,11 @@
 import StorageOptions from "./storage-options";
 
-export interface StorageEnvironment {
+export interface ConfigurationEnvironment {
 
     key: string;
 
-    devkey: string;
-
-    options: StorageOptions;
+    opt: StorageOptions;
 
 }
 
-export default StorageEnvironment;
+export default ConfigurationEnvironment;

@@ -1,12 +1,12 @@
 import ConfigurationItem from "./configuration-item";
-import StorageEnvironment from "./storage-environment";
+import ConfigurationEnvironment from "./configuration-environment";
 
-export interface StorageConfiguration {
+export interface ConfigurationStorage {
 
-    itn: ConfigurationItem[];
+    env: ConfigurationEnvironment;
 
-    env: StorageEnvironment;
+    its: ConfigurationItem[];
 
 }
 
-export default StorageConfiguration;
+export default ConfigurationStorage;

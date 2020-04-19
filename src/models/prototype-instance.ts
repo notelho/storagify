@@ -13,11 +13,13 @@ export class PrototypeInstance implements Prototype {
 
         includes();
 
+        const key = env.key;
+        const stringfy = env.stringify;
+
         Storage.prototype[`[[environment]]`] = env;
 
-        Storage.prototype[`[[encoder]]`] = new Encoder(env);
-        Storage.prototype[`[[parser]]`] = new Parser(env);
-
+        Storage.prototype[`[[encoder]]`] = new Encoder(key);
+        Storage.prototype[`[[parser]]`] = new Parser(stringfy);
         Storage.prototype[`[[configurator]]`] = new Configurator();
         Storage.prototype[`[[development]]`] = new WorkerDevelopment();
         Storage.prototype[`[[production]]`] = new WorkerProduction();

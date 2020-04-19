@@ -11,7 +11,9 @@ export class WorkerDevelopment extends Worker {
     public get(instance: Storagify, key: string): any {
 
         const { calls, parser } = this.from(instance);
+
         const value = calls.getItem(key);
+
         const parsed = parser.parse(value);
 
         return parsed;

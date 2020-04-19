@@ -1,8 +1,5 @@
-import Encoder from "./encoder";
-import NativeBase from "./native-base";
 import Storagify from "./storagify";
-import Parser from "./parser";
-import Configurator from "./configurator";
+import getCalls from '../utils/get-calls';
 
 export abstract class Worker {
 
@@ -22,45 +19,22 @@ export abstract class Worker {
 
     public abstract start(instance: Storagify): void;
 
-    protected len(instance: Storagify): number {
-        return instance.length;
-    }
-
     protected from(instance: Storagify) {
 
-        const encoder: Encoder = instance["[[encoder]]"];
+        return {
 
-        const parser: Parser = instance["[[parser]]"];
+            encoder: instance["[[encoder]]"],
 
-        const native: NativeBase = instance["[[native]]"];
+            parser: instance["[[parser]]"],
 
-        const configurator: Configurator = instance["[[configurator]]"];
+            calls: instance["[[native]]"],
 
-        const calls: NativeBase = {
+            configurator: instance["[[configurator]]"],
 
-            setItem: function (key: string, value: any) {
-                return native.setItem.call(instance, key, value);
-            },
-
-            getItem: function (key: string) {
-                return native.getItem.call(instance, key);
-            },
-
-            removeItem: function (key: string) {
-                return native.removeItem.call(instance, key);
-            },
-
-            clear: function () {
-                return native.clear.call(instance);
-            },
-
-            key: function (index: number) {
-                return native.key.call(instance, index);
-            },
+            native: getCalls(instance),
 
         };
 
-        return { encoder, parser, calls, configurator, native };
     }
 
 }

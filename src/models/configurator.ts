@@ -12,11 +12,9 @@ export class Configurator {
 
     public start(instance: Storagify): string {
 
-        const nonPublic = new NonPublic();
         const parser = new Parser();
-
+        const nonPublic = new NonPublic();
         const calls = getCalls(instance);
-
         const key = nonPublic.encoder.hash('__config');
 
         let config: string | ConfigurationStorage = calls.getItem(key)
@@ -29,7 +27,6 @@ export class Configurator {
 
             //     pra cada registro na config verifica se a chave existe no storage
             //         se não existir, deleta na config
-
 
             //     pra cada registro no storage verifica se existe a chave
             //         se não existir, cria com um date now
@@ -99,12 +96,6 @@ export class Configurator {
 
 
 
-
-
-        // set __config
-        // set env
-        // set empty[]
-
         return `${getType(instance)} storagify started successfully.`;
 
     }
@@ -116,6 +107,9 @@ export class Configurator {
     }
 
     public when(instance: Storagify, key: string): Date {
+
+        // se a key existir e não existir na configuração
+
         // return this.av64x4.when(str)
         return new Date()
     }

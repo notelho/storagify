@@ -11,19 +11,14 @@ export function getConfiguration(
 
     name: defaults.ItemName,
 
-    timestamp: defaults.ItemTimestamp,
-
-    index: number
-
+    timestamp: defaults.ItemTimestamp
 } {
 
     return {
 
         name: config.its[index].n,
 
-        timestamp: config.its[index].t,
-
-        index: index
+        timestamp: config.its[index].t
 
     };
 

@@ -1,8 +1,8 @@
+import * as eachActions from './each-actions';
 import Storagify from "../models/storagify";
 import ConfigurationStorage from "../models/configuration-storage";
 import getConfiguration from "./get-configuration";
 import getCalls from "./get-calls";
-import * as eachActions from './each-actions';
 
 export function checkIfKeyExists(
 
@@ -17,22 +17,19 @@ export function checkIfKeyExists(
 ): ConfigurationStorage {
 
     const len = config.its.length;
-    const calls = getCalls(instance);
 
     for (let i = 0; i < len; i++) {
 
-        const { name, index } = getConfiguration(config, i);
+        const calls = getCalls(instance);
+        const { name } = getConfiguration(config, i);
         const item = calls.getItem(name);
-        const exists = item ? true : false;
+        const args = { config, index: i };
 
-        if (exists && trueAction) {
-            config = trueAction({ config, index });
+        if (item && trueAction) {
+            config = trueAction(args);
+        } else if (!item && falseAction) {
+            config = falseAction(args);
         }
-
-        if (!exists && falseAction) {
-            config = falseAction({ config, index });
-        }
-
     }
 
     return config;

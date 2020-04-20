@@ -1,10 +1,5 @@
-https://michalzalecki.com/creating-typescript-library-with-a-minimal-setup/ 
-https://www.tsmean.com/articles/how-to-write-a-typescript-library/
+NEXT FEATURES:
 
-    // _parse(obj) {
-    //     try {
-    //         return JSON.parse(obj)
-    //     } catch (err) {
-    //         return obj
-    //     }
-    // }
+    - minify in production version the timestamp next to the value / key
+    - availability of more encryptions to choose from
+    - jwt integration

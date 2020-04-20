@@ -8,21 +8,28 @@ export class Encoder {
         this._key = key;
     }
 
-    public hash(str: string): string {
+    public encodeDES(str: string): string {
         const key = this._key;
-        const hash = cryptojs.SHA1(str, key);
-        const encoded = cryptojs.enc.Utf8.stringify(hash);
-        return encoded;
-    }
-
-    public encode(str: string): string {
-        const key = this._key;
-        const encrypted = cryptojs.SHA1(str, key);
+        const encrypted = cryptojs.DES.encrypt(str, key);
         const encoded = cryptojs.enc.Utf8.stringify(encrypted);
         return encoded;
     }
 
-    public decode(str: string): string {
+    public decodeDES(str: string): string {
+        const key = this._key;
+        const decrypted = cryptojs.DES.decrypt(str, key);
+        const encoded = cryptojs.enc.Utf8.stringify(decrypted);
+        return encoded;
+    }
+
+    public encodeAES(str: string): string {
+        const key = this._key;
+        const encrypted = cryptojs.AES.encrypt(str, key);
+        const encoded = cryptojs.enc.Utf8.stringify(encrypted);
+        return encoded;
+    }
+
+    public decodeAES(str: string): string {
         const key = this._key;
         const decrypted = cryptojs.AES.decrypt(str, key);
         const encoded = cryptojs.enc.Utf8.stringify(decrypted);

@@ -1,3 +1,5 @@
+import * as eachConfig from '../utils/each-config';
+import * as eachActions from '../utils/each-actions';
 import ConfigurationStorage from "./configuration-storage";
 import Storagify from "./storagify";
 import NonPublic from "./non-public";
@@ -17,7 +19,7 @@ export class Configurator {
         const calls = getCalls(instance);
         const key = nonPublic.encoder.hash('__config');
 
-        let config: string | ConfigurationStorage = calls.getItem(key)
+        let config: any = calls.getItem(key)
 
         if (config) {
 
@@ -25,8 +27,9 @@ export class Configurator {
 
             config = parser.parse(config);
 
-            //     pra cada registro na config verifica se a chave existe no storage
-            //         se não existir, deleta na config
+            // pra cada registro na config verifica se a chave existe no storage
+            // se não existir, deleta na config
+            config = eachConfig.checkIfKeyExists(instance, config, false, eachActions.deleteFromConfig);
 
             //     pra cada registro no storage verifica se existe a chave
             //         se não existir, cria com um date now
@@ -41,7 +44,7 @@ export class Configurator {
 
         } else {
 
-            config = getEnv(instance);
+            config = { its: [], env: getEnv(instance) }
 
             // vou precisar de um hash() diferente que de pra converter de volta
 

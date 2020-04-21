@@ -1,130 +1,124 @@
-import * as eachConfig from '../utils/each-config';
-import * as eachActions from '../utils/each-actions';
-import * as eachStorage from '../utils/each-storage';
+import TypeStored from "./type-stored";
 import Storagify from "./storagify";
-import NonPublic from "./non-public";
-import Parser from "./parser";
-import getCalls from '../utils/get-calls';
-import getType from "../utils/get-type";
-import getEnv from "../utils/get-env";
+import Encoder from "./encoder";
+import getFrom from "../utils/get-from";
+import getTime from "../utils/get-time";
 
 export class Configurator {
 
-    constructor() { }
+    readonly key = "5c5a0bf45e5dd45f1eb610c1d98d7d5c";
 
-    public start(instance: Storagify): string {
+    readonly name = "__storagify__development";
 
-        // const parser = new Parser();
-        // const nonPublic = new NonPublic();
-        // const calls = getCalls(instance);
-        // const name = nonPublic.name;
-        // const key = nonPublic.encoder.hash('__config');
+    private _encoder: Encoder;
 
-        // let config: any = calls.getItem(key)
+    constructor() {
+        this._encoder = new Encoder(this.key);
+    }
 
-        // if (config) {
+    public update(instance: Storagify, key: string, timestamp: number) {
 
-        //     config = nonPublic.encoder.decode(config);
+        const config = this._getConfig(instance);
 
-        //     config = parser.parse(config);
+        const keylist = config.map(item => item.k);
 
-        //     // pra cada registro na config verifica se a chave existe no storage
-        //     // se não existir, deleta na config
-        //     config = eachConfig.checkIfKeyExists(instance, config, false, eachActions.deleteFromConfig);
+        const index = keylist.indexOf(key);
 
-        //     //     pra cada registro no storage verifica se existe a chave na config
-        //     //         se não existir, cria com um date now
-        //     // }
-        //     config = eachStorage.checkIfKeyExists(instance, config, false, eachActions.createNewItem);
+        if (index !== -1) {
 
-        //     // sobrescreve o env com o novo
+            config[index].t = timestamp;
 
-        //     //     verifica  se a chave é a mesma , se for retorna o warn
-        //     //  'Using an encryption key other than the previous one can cause problems.'
+        } else {
 
+            config.push({ k: key, t: timestamp });
 
-        // } else {
+        }
 
-        //     config = { its: [], env: getEnv(instance) }
-
-        //     // vou precisar de um hash() diferente que de pra converter de volta
-
-        //     // criar um is no hash pra verificar se a chave com o hash tem __storagify__
-
-        //     /*
-        //     // cria o config com todas as chaves do storage e timestamp zerados
-        //         pra cada item no storage, for {
-
-        //             its =  [
-
-        //                 {
-
-        //                     n: defaults.ItemName;
-
-        //                     t: defaults.ItemTimestamp;
-
-        //                 }
-
-        //             ]
-
-        //             if ( encoder.is(key) ) {
-
-        //                 item = get item
-
-        //                 config.  its . push ( n : item.key , t : new Date().getTime() )
-
-        //                 decoded key = decode ( key )
-
-        //                 decoded value = decode ( value )
-
-        //                 set item ( item )
-
-        //             } 
-
-        //         }
-
-        //     */
-
-
-
-        //     //         return new Array(isntance.length( ))
-        //     //             .fill(false)
-        //     //             .map((v, i) => i)
-        //     //             .map((v) => calls.key(v))
-        //     //             .map((v) => v = v.replace(consts.devkey, ''))
-
-
-
-
-        // }
-
-
-
-        return `${getType(instance)} storagify started successfully.`;
+        this._setConfig(instance, config);
 
     }
 
-    public update(instance: Storagify, key: string, value: string, timestamp: number): void {
+    public when(instance: Storagify, key: string): Date | null {
 
-        // do check
+        const config = this._getConfig(instance);
 
-        const nonPublic = new NonPublic();
+        const keylist = config.map(item => item.k);
+
+        const index = keylist.indexOf(key);
+
+        if (index !== -1) {
+
+            const item = config[index];
+
+            return new Date(item.t);
+
+        } else {
+
+            return null;
+
+        }
 
     }
 
-    public when(instance: Storagify, key: string): Date {
+    public docheck(instance: Storagify): void {
 
-        // do check
+        const { calls } = getFrom(instance);
 
+        const config = calls.getItem(this.name);
 
-        return new Date()
+        if (!config) {
+
+            const newconfig: TypeStored[] = [];
+
+            const emptyArray = new Array(instance.length);
+
+            const indexArray = emptyArray.map((v, i) => i);
+
+            const keysArray = indexArray.map(v => <string>calls.key(v));
+
+            for (let key of keysArray) {
+
+                if (this.isValidName(key)) {
+
+                    newconfig.push({ k: key, t: getTime() });
+
+                }
+
+            }
+
+            this._setConfig(instance, newconfig);
+
+        }
+
     }
 
-    public docheck() {
+    public isValidName(key: string): boolean {
 
-        // verifica se existe o __config
+        return key !== this.name;
 
-        // se não existir, redireciona pro start
+    }
+
+    private _setConfig(instance: Storagify, config: TypeStored[]): void {
+
+        const { calls, parser } = getFrom(instance);
+
+        const stringval = parser.stringfy(config);
+
+        const encoded = this._encoder.encodeAES(stringval);
+
+        calls.setItem(this.name, encoded);
+
+    }
+
+    private _getConfig(instance: Storagify): TypeStored[] {
+
+        const { calls, parser } = getFrom(instance);
+
+        const stringval = calls.getItem(this.name);
+
+        const decoded = this._encoder.decodeAES(stringval);
+
+        return parser.parse(decoded);
 
     }
 

@@ -1,99 +1,89 @@
 import Worker from './worker'
 import Storagify from './storagify';
-import getWhen from '../utils/get-when';
-import getCalls from '../utils/get-calls';
+import getTime from '../utils/get-time';
+import getFrom from '../utils/get-from';
 
 export class WorkerDevelopment extends Worker {
 
-    constructor() {
-        super();
-    }
-
     public get(instance: Storagify, key: string): any {
 
-        const { calls, parser } = this.from(instance);
+        const { calls, parser } = getFrom(instance);
+
         const value = calls.getItem(key);
+
         const parsed = parser.parse(value);
 
         return parsed;
+
     }
 
     public set(instance: Storagify, key: string, value: any): void {
 
-        const timestamp = new Date().getTime();
+        const { configurator, parser, calls } = getFrom(instance);
 
-        const { configurator } = this.from(instance);
+        const timestamp = getTime();
 
-        configurator.update(instance, key, value, timestamp);
+        const stringval = parser.stringfy(value);
 
-        //         const base = this._translate(instance).base
-        //         if (!value)
-        //             value = null
-        //         key = `${consts.devkey}${key}`
-        //         value = {
-        //             val: this._parse(value),
-        //             timestamp: timestamp 
-        //         }
-        //         base.setItem(key, JSON.stringify(value))
+        calls.setItem(key, stringval);
+
+        configurator.docheck(instance);
+
+        configurator.update(instance, key, timestamp);
 
     }
 
     public delete(instance: Storagify, key: string): void {
 
-        this.from(instance).calls.removeItem(key);
+        getFrom(instance).calls.removeItem(key);
 
     }
 
     public list(instance: Storagify): string[] {
 
-        const calls = getCalls(instance);
+        const { calls } = getFrom(instance);
+
         const emptyArray = new Array(instance.length);
+
         const indexArray = emptyArray.map((v, i) => i);
+
         const keysArray = indexArray.map(v => calls.key(v));
 
         return <string[]>keysArray;
+
     }
 
     public when(instance: Storagify, key: string): Date | null {
 
-        return getWhen(instance, key);
+        const { configurator } = getFrom(instance);
+
+        configurator.docheck(instance);
+
+        return configurator.when(instance, key);
 
     }
 
     public clear(instance: Storagify): void {
 
-        this.from(instance).calls.clear();
+        getFrom(instance).calls.clear();
 
     }
 
     public key(instance: Storagify, index: number): string | null {
 
-        return getCalls(instance).key(index);
+        return getFrom(instance).calls.key(index);
 
     }
 
     public start(instance: Storagify): void {
 
-        const { configurator, encoder, calls } = this.from(instance);
+        // const { configurator } = getFrom(instance);
 
-        configurator.start(instance);
+        // configurator.docheck(instance);
 
-        //         const
 
-        //             keys = new Array(this._len(instance))
-        //                 .fill(false)
-        //                 .map((v, i) => i)
-        //                 .map((v) => instance.key(v))
+        // pra cada item no storage, converter pra dev e dar um config.update
 
-        //         for (let k of keys) {
-        //             if (converter.isProd(k, base, encoder)) {
-        //                 let d = converter.prodToDev(k, base, encoder)
-        //                 this.set(d.key, d.value, instance, d.when)
-        //             } else if (!converter.isDev(k, base)) {
-        //                 let d = converter.defaultToDev(k, base)
-        //                 this.set(d.key, d.value, instance)
-        //             }
-        //         }
 
     }
 

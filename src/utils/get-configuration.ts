@@ -1,27 +1,27 @@
-import ConfigurationStorage from "../models/configuration-storage";
-import * as defaults from '../models/configuration-defaults';
+// import ConfigurationStorage from "../models/configuration-storage";
+// import * as defaults from '../models/configuration-defaults';
 
-export function getConfiguration(
+// export function getConfiguration(
 
-    config: ConfigurationStorage,
+//     config: ConfigurationStorage,
 
-    index: number,
+//     index: number,
 
-): {
+// ): {
 
-    name: defaults.ItemName,
+//     name: defaults.ItemName,
 
-    timestamp: defaults.ItemTimestamp
-} {
+//     timestamp: defaults.ItemTimestamp
+// } {
 
-    return {
+//     return {
 
-        name: config.its[index].n,
+//         name: config.its[index].n,
 
-        timestamp: config.its[index].t
+//         timestamp: config.its[index].t
 
-    };
+//     };
 
-}
+// }
 
-export default getConfiguration;
+// export default getConfiguration;

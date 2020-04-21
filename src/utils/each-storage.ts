@@ -1,45 +1,45 @@
-import Storagify from "../models/storagify";
-import ConfigurationStorage from "../models/configuration-storage";
-import * as eachActions from './each-actions'
-import getCalls from "./get-calls";
+// import Storagify from "../models/storagify";
+// import ConfigurationStorage from "../models/configuration-storage";
+// import * as eachActions from './each-actions'
+// import getCalls from "./get-calls";
 
-export function checkIfKeyExists(
+// export function checkIfKeyExists(
 
-    instance: Storagify,
+//     instance: Storagify,
 
-    config: ConfigurationStorage,
+//     config: ConfigurationStorage,
 
-    trueAction: eachActions.EachActionType | false,
+//     trueAction: eachActions.EachActionType | false,
 
-    falseAction: eachActions.EachActionType | false,
+//     falseAction: eachActions.EachActionType | false,
 
-): ConfigurationStorage {
+// ): ConfigurationStorage {
 
-    const calls = getCalls(instance);
+//     const calls = getCalls(instance);
 
-    const len = instance.length;
+//     const len = instance.length;
 
-    for (let i = 0; i < len; i++) {
+//     for (let i = 0; i < len; i++) {
 
-        const key = calls.key(i) || '';
-        const item = calls.getItem(key);
+//         const key = calls.key(i) || '';
+//         const item = calls.getItem(key);
 
-        const availableNames = config.its.map(obg => obg.n);
-        const availableConf = availableNames.indexOf(key) !== -1;
+//         const availableNames = config.its.map(obg => obg.n);
+//         const availableConf = availableNames.indexOf(key) !== -1;
 
-        const args = { key, config };
+//         const args = { key, config };
 
-        if (key && item && availableConf && trueAction) {
+//         if (key && item && availableConf && trueAction) {
 
-            return trueAction(args);
+//             return trueAction(args);
 
-        } else if (key && item && falseAction) {
+//         } else if (key && item && falseAction) {
 
-            return falseAction(args);
+//             return falseAction(args);
 
-        }
+//         }
 
-    }
+//     }
 
-    return config
-} 
+//     return config
+// } 

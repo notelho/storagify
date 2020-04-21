@@ -14,7 +14,7 @@ export class Parser {
         }
     }
 
-    public stringfy(value?: any): string | void {
+    public stringfy(value?: any): string {
         try {
 
             const isString = typeof value === "string";

@@ -1,5 +1,4 @@
 import Storagify from "./storagify";
-import getCalls from '../utils/get-calls';
 
 export abstract class Worker {
 
@@ -18,22 +17,6 @@ export abstract class Worker {
     public abstract key(instance: Storagify, index: number): string | null;
 
     public abstract start(instance: Storagify): void;
-
-    protected from(instance: Storagify) {
-
-        return {
-
-            encoder: instance["[[encoder]]"],
-
-            parser: instance["[[parser]]"],
-
-            calls: getCalls(instance),
-
-            configurator: instance["[[configurator]]"],
-
-        };
-
-    }
 
 }
 

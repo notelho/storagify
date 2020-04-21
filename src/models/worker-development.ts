@@ -77,7 +77,7 @@ export class WorkerDevelopment extends Worker {
 
     public start(instance: Storagify): void {
 
-        // const { configurator } = getFrom(instance);
+        const { configurator } = getFrom(instance);
 
         // configurator.docheck(instance);
 

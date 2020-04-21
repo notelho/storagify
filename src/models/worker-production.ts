@@ -1,12 +1,8 @@
 import Worker from "./worker";
 import Storagify from "./storagify";
-import * as conversor from '../conversor'
+import getFrom from "../utils/get-from";
 
 export class WorkerProduction extends Worker {
-
-    constructor() {
-        super();
-    }
 
     public get(instance: Storagify, key: string): any {
         // const
@@ -26,8 +22,13 @@ export class WorkerProduction extends Worker {
     }
 
     public delete(instance: Storagify, key: string): void {
-        // const { encoder, base } = this._translate(instance)
-        // base.removeItem(encoder.hash(key))
+
+        const { calls, encoder } = getFrom(instance);
+
+        const enckey = encoder.encodeDES(key);
+
+        calls.removeItem(enckey);
+
     }
 
     public list(instance: Storagify): string[] {
@@ -50,29 +51,34 @@ export class WorkerProduction extends Worker {
 
     public clear(instance: Storagify): void {
 
-        // this._translate(instance).base.clear()
+        getFrom(instance).calls.clear();
 
     }
 
     public key(instance: Storagify, index: number): string | null {
-        return ''
+
+        const { calls, encoder } = getFrom(instance);
+
+        const key = calls.key(index);
+
+        if (key) {
+
+            return encoder.decodeDES(key);
+
+        } else {
+
+            return null;
+
+        }
+
     }
 
     public start(instance: Storagify): void {
-        // const { encoder, base } = this._translate(instance),
-        //     keys = new Array(this._len(instance))
-        //         .fill(false)
-        //         .map((v, i) => i)
-        //         .map((v) => instance.key(v))
-        // for (let key of keys) {
-        //     if (converter.isDev(key, base)) {
-        //         let d = converter.devToProd(key, base)
-        //         this.set(d.key, d.value, instance, d.when)
-        //     } else if (!converter.isProd(key, base, encoder)) {
-        //         let d = converter.defaultToProd(key, base)
-        //         this.set(d.key, d.value, instance)
-        //     }
-        // }
+
+        // verificar se existe a __config
+
+        // 
+
     }
 
 }

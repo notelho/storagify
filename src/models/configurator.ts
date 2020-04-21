@@ -92,6 +92,14 @@ export class Configurator {
 
     }
 
+    // public isprod(instance: Storagify, key: string): boolean {
+
+    //     const { calls } = getFrom(instance);
+
+    //     return false
+
+    // }
+
     public isValidName(key: string): boolean {
 
         return key !== this.name;

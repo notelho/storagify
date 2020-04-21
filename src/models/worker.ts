@@ -11,7 +11,7 @@ export abstract class Worker {
 
     public abstract list(instance: Storagify): string[];
 
-    public abstract when(instance: Storagify, key: string): Date;
+    public abstract when(instance: Storagify, key: string): Date | null;
 
     public abstract clear(instance: Storagify): void;
 
@@ -27,11 +27,9 @@ export abstract class Worker {
 
             parser: instance["[[parser]]"],
 
-            calls: instance["[[native]]"],
+            calls: getCalls(instance),
 
             configurator: instance["[[configurator]]"],
-
-            native: getCalls(instance),
 
         };
 

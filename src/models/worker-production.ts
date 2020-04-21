@@ -39,7 +39,7 @@ export class WorkerProduction extends Worker {
         return []
     }
 
-    public when(instance: Storagify, key: string): Date {
+    public when(instance: Storagify, key: string): Date | null {
         // const
         //     { encoder, base } = this._translate(instance),
         //     value = base.getItem(encoder.hash(key)),

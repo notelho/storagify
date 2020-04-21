@@ -1,6 +1,7 @@
 import Worker from './worker'
 import Storagify from './storagify';
-import * as conversor from '../conversor'
+import getWhen from '../utils/get-when';
+import getCalls from '../utils/get-calls';
 
 export class WorkerDevelopment extends Worker {
 
@@ -11,25 +12,27 @@ export class WorkerDevelopment extends Worker {
     public get(instance: Storagify, key: string): any {
 
         const { calls, parser } = this.from(instance);
-
         const value = calls.getItem(key);
-
         const parsed = parser.parse(value);
 
         return parsed;
-
     }
 
-    public set(instance: Storagify, key: string, value: any, timestamp?: number): void {
+    public set(instance: Storagify, key: string, value: any): void {
+
+        const timestamp = new Date().getTime();
+
+        const { configurator } = this.from(instance);
+
+        configurator.update(instance, key, value, timestamp);
+
         //         const base = this._translate(instance).base
         //         if (!value)
         //             value = null
         //         key = `${consts.devkey}${key}`
         //         value = {
         //             val: this._parse(value),
-        //             timestamp: timestamp ?
-        //                 timestamp :
-        //                 new Date().getTime()
+        //             timestamp: timestamp 
         //         }
         //         base.setItem(key, JSON.stringify(value))
 
@@ -42,21 +45,19 @@ export class WorkerDevelopment extends Worker {
     }
 
     public list(instance: Storagify): string[] {
-        //         return new Array(this._len(instance))
-        //             .fill(false)
-        //             .map((v, i) => i)
-        //             .map((v) => instance.key(v))
-        //             .map((v) => v = v.replace(consts.devkey, ''))
-        return []
+
+        const calls = getCalls(instance);
+        const emptyArray = new Array(instance.length);
+        const indexArray = emptyArray.map((v, i) => i);
+        const keysArray = indexArray.map(v => calls.key(v));
+
+        return <string[]>keysArray;
     }
 
-    public when(instance: Storagify, key: string): Date {
-        //         const
-        //             base = this._translate(instance).base,
-        //             value = base.getItem(`${consts.devkey}${key}`),
-        //             parsed = this._parse(value)
-        //         return new Date(parsed.timestamp)
-        return new Date()
+    public when(instance: Storagify, key: string): Date | null {
+
+        return getWhen(instance, key);
+
     }
 
     public clear(instance: Storagify): void {
@@ -67,7 +68,7 @@ export class WorkerDevelopment extends Worker {
 
     public key(instance: Storagify, index: number): string | null {
 
-        return this.from(instance).calls.key(index);
+        return getCalls(instance).key(index);
 
     }
 

@@ -44,7 +44,7 @@ export interface Storagify extends Storage {
 
     list(): string[];
 
-    when(key: string): Date;
+    when(key: string): Date | null;
 
     start(): void;
 

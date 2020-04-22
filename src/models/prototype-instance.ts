@@ -6,6 +6,7 @@ import Prototype from './prototype';
 import Encoder from './encoder.js';
 import Parser from './parser.js';
 import includes from '../utils/includes';
+import Convertor from './convertor.js';
 
 export class PrototypeInstance implements Prototype {
 
@@ -20,6 +21,7 @@ export class PrototypeInstance implements Prototype {
 
         Storage.prototype[`[[encoder]]`] = new Encoder(key);
         Storage.prototype[`[[parser]]`] = new Parser(stringfy);
+        Storage.prototype[`[[convertor]]`] = new Convertor();
         Storage.prototype[`[[configurator]]`] = new Configurator();
         Storage.prototype[`[[development]]`] = new WorkerDevelopment();
         Storage.prototype[`[[production]]`] = new WorkerProduction();

@@ -92,14 +92,6 @@ export class Configurator {
 
     }
 
-    // public isprod(instance: Storagify, key: string): boolean {
-
-    //     const { calls } = getFrom(instance);
-
-    //     return false
-
-    // }
-
     public isValidName(key: string): boolean {
 
         return key !== this.name;
@@ -110,9 +102,9 @@ export class Configurator {
 
         const { calls, parser } = getFrom(instance);
 
-        const stringval = parser.stringfy(config);
+        const stringvalue = parser.stringfy(config);
 
-        const encoded = this._encoder.encodeAES(stringval);
+        const encoded = this._encoder.encodeAES(stringvalue);
 
         calls.setItem(this.name, encoded);
 
@@ -122,9 +114,9 @@ export class Configurator {
 
         const { calls, parser } = getFrom(instance);
 
-        const stringval = calls.getItem(this.name);
+        const stringvalue = calls.getItem(this.name);
 
-        const decoded = this._encoder.decodeAES(stringval);
+        const decoded = this._encoder.decodeAES(stringvalue);
 
         return parser.parse(decoded);
 

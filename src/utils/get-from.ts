@@ -15,6 +15,8 @@ export function getFrom(instance: Storagify) {
 
         configurator: instance["[[configurator]]"],
 
+        convertor: instance["[[convertor]]"],
+
         calls: {
 
             setItem: function (key: string, value: any) {

@@ -5,6 +5,7 @@ import WorkerProduction from "./worker-production";
 import Parser from "./parser";
 import Encoder from "./encoder";
 import Configurator from "./configurator";
+import Convertor from "./convertor";
 
 export interface Storagify extends Storage {
 
@@ -27,6 +28,8 @@ export interface Storagify extends Storage {
     "[[native]]": NativeBase;
 
     "[[configurator]]": Configurator;
+
+    "[[convertor]]": Convertor;
 
     // ==================================================
 

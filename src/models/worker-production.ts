@@ -5,14 +5,19 @@ import getFrom from "../utils/get-from";
 export class WorkerProduction extends Worker {
 
     public get(instance: Storagify, key: string): any {
-        // const
-        //     { encoder, base } = this._translate(instance),
-        //     value = base.getItem(encoder.hash(key)),
-        //     decoded = encoder.decode(value)
-        // return this._parse(decoded)
+
+        const { calls, encoder, convertor } = getFrom(instance);
+
+        const enckey = encoder.encodeDES(key);
+
+        const encvalue = calls.getItem(enckey);
+
+        const value = convertor.value(instance, encvalue);
+
+        return value;
     }
 
-    public set(instance: Storagify, key: string, value: any, timestamp?: number): void {
+    public set(instance: Storagify, key: string, value: any): void {
         // const { encoder, base } = this._translate(instance)
         // if (!value) value = "null"
         // if (typeof value !== 'string') value = JSON.stringify(value)

@@ -1,6 +1,6 @@
 {
   "name": "storagify",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Storagify is a front-end library that builds a superset based on browser storages, localStorage and sessionStorage. It offers additional functions and encryption automatically, as well as several options for development, integration and especially compatibility.",
   "author": "Nathan Botelho <nimbotelho@gmail.com> (https://github.com/notelho)",
   "license": "MIT",

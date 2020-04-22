@@ -23,9 +23,9 @@ export class WorkerDevelopment extends Worker {
 
         const timestamp = getTime();
 
-        const stringval = parser.stringfy(value);
+        const stringvalue = parser.stringfy(value);
 
-        calls.setItem(key, stringval);
+        calls.setItem(key, stringvalue);
 
         configurator.docheck(instance);
 

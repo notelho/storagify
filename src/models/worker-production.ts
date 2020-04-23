@@ -1,6 +1,7 @@
 import Worker from "./worker";
 import Storagify from "./storagify";
 import getFrom from "../utils/get-from";
+import getTime from "../utils/get-time";
 
 export class WorkerProduction extends Worker {
 
@@ -18,12 +19,17 @@ export class WorkerProduction extends Worker {
     }
 
     public set(instance: Storagify, key: string, value: any): void {
-        // const { encoder, base } = this._translate(instance)
-        // if (!value) value = "null"
-        // if (typeof value !== 'string') value = JSON.stringify(value)
-        // key = encoder.hash(key)
-        // value = encoder.encode(value, timestamp)
-        // base.setItem(key, value)
+
+        const { calls, encoder, convertor } = getFrom(instance);
+
+        const timestamp = getTime();
+
+        const concatenated = convertor.concat(instance, value, timestamp);
+
+        const enckey = encoder.encodeDES(key);
+
+        calls.setItem(enckey, concatenated);
+
     }
 
     public delete(instance: Storagify, key: string): void {

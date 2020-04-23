@@ -20,9 +20,9 @@ export class Configurator {
 
         const config = this._getConfig(instance);
 
-        const keylist = config.map(item => item.k);
+        const keyList = config.map(item => item.k);
 
-        const index = keylist.indexOf(key);
+        const index = keyList.indexOf(key);
 
         if (index !== -1) {
 
@@ -42,9 +42,9 @@ export class Configurator {
 
         const config = this._getConfig(instance);
 
-        const keylist = config.map(item => item.k);
+        const keyList = config.map(item => item.k);
 
-        const index = keylist.indexOf(key);
+        const index = keyList.indexOf(key);
 
         if (index !== -1) {
 
@@ -68,7 +68,7 @@ export class Configurator {
 
         if (!config) {
 
-            const newconfig: TypeStored[] = [];
+            const newConfig: TypeStored[] = [];
 
             const emptyArray = new Array(instance.length);
 
@@ -80,13 +80,13 @@ export class Configurator {
 
                 if (this.isValidName(key)) {
 
-                    newconfig.push({ k: key, t: getTime() });
+                    newConfig.push({ k: key, t: getTime() });
 
                 }
 
             }
 
-            this._setConfig(instance, newconfig);
+            this._setConfig(instance, newConfig);
 
         }
 
@@ -102,9 +102,9 @@ export class Configurator {
 
         const { calls, parser } = getFrom(instance);
 
-        const stringvalue = parser.stringfy(config);
+        const stringValue = parser.stringfy(config);
 
-        const encoded = this._encoder.encodeAES(stringvalue);
+        const encoded = this._encoder.encodeAES(stringValue);
 
         calls.setItem(this.name, encoded);
 
@@ -114,9 +114,9 @@ export class Configurator {
 
         const { calls, parser } = getFrom(instance);
 
-        const stringvalue = calls.getItem(this.name);
+        const stringValue = calls.getItem(this.name);
 
-        const decoded = this._encoder.decodeAES(stringvalue);
+        const decoded = this._encoder.decodeAES(stringValue);
 
         return parser.parse(decoded);
 

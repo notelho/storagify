@@ -9,13 +9,14 @@ export class WorkerProduction extends Worker {
 
         const { calls, encoder, convertor } = getFrom(instance);
 
-        const enckey = encoder.encodeDES(key);
+        const encryptedKey = encoder.encodeDES(key);
 
-        const encvalue = calls.getItem(enckey);
+        const encvalue = calls.getItem(encryptedKey);
 
         const value = convertor.value(instance, encvalue);
 
         return value;
+
     }
 
     public set(instance: Storagify, key: string, value: any): void {
@@ -24,11 +25,11 @@ export class WorkerProduction extends Worker {
 
         const timestamp = getTime();
 
-        const concatenated = convertor.concat(instance, value, timestamp);
+        const encryptedValue = convertor.concat(instance, value, timestamp);
 
-        const enckey = encoder.encodeDES(key);
+        const encryptedKey = encoder.encodeDES(key);
 
-        calls.setItem(enckey, concatenated);
+        calls.setItem(encryptedKey, encryptedValue);
 
     }
 
@@ -36,9 +37,9 @@ export class WorkerProduction extends Worker {
 
         const { calls, encoder } = getFrom(instance);
 
-        const enckey = encoder.encodeDES(key);
+        const encryptedKey = encoder.encodeDES(key);
 
-        calls.removeItem(enckey);
+        calls.removeItem(encryptedKey);
 
     }
 
@@ -50,11 +51,11 @@ export class WorkerProduction extends Worker {
 
         const indexArray = emptyArray.map((v, i) => i);
 
-        const encodedArray = indexArray.map(v => calls.key(v));
+        const encryptedArray = indexArray.map(v => calls.key(v));
 
-        const decodedArray = encodedArray.map(v => encoder.decodeDES(v || ''));
+        const descryptedArray = encryptedArray.map(v => encoder.decodeDES(v || ''));
 
-        return <string[]>decodedArray;
+        return <string[]>descryptedArray;
 
     }
 

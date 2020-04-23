@@ -7,13 +7,13 @@ export class Convertor {
 
     constructor() { }
 
-    public value(instance: Storagify, encvalue: string): any {
+    public value(instance: Storagify, encryptedValue: string): any {
 
         const { encoder, parser } = getFrom(instance);
 
-        const decvalue = encoder.decodeAES(encvalue);
+        const decryptedValue = encoder.decodeAES(encryptedValue);
 
-        const { value } = this._split(decvalue);
+        const { value } = this._split(decryptedValue);
 
         const parsed = parser.parse(value);
 
@@ -25,15 +25,15 @@ export class Convertor {
 
         const { encoder, parser } = getFrom(instance);
 
-        const stringtimestamp = parser.stringfy(timestamp);
+        const stringTimestamp = parser.stringfy(timestamp);
 
-        const stringvalue = parser.stringfy(value);
+        const stringValue = parser.stringfy(value);
 
-        const concatenated = `${stringvalue}${this.separator}${stringtimestamp}`
+        const concatenatedValue = `${stringValue}${this.separator}${stringTimestamp}`
 
-        const encvalue = encoder.encodeAES(concatenated);
+        const encryptedValue = encoder.encodeAES(concatenatedValue);
 
-        return encvalue;
+        return encryptedValue;
 
     }
 
@@ -41,15 +41,15 @@ export class Convertor {
 
         const { encoder, calls } = getFrom(instance);
 
-        const enckey = encoder.encodeDES(key);
+        const encryptedKey = encoder.encodeDES(key);
 
-        const encvalue = calls.getItem(enckey);
+        const encryptedValue = calls.getItem(encryptedKey);
 
-        if (encvalue) {
+        if (encryptedValue) {
 
-            const decvalue = encoder.decodeAES(encvalue);
+            const decryptedValue = encoder.decodeAES(encryptedValue);
 
-            const { timestamp } = this._split(decvalue);
+            const { timestamp } = this._split(decryptedValue);
 
             return new Date(timestamp);
 
@@ -61,9 +61,9 @@ export class Convertor {
 
     }
 
-    private _split(decvalue: string) {
+    private _split(decryptedValue: string) {
 
-        const splited = decvalue.split(this.separator);
+        const splited = decryptedValue.split(this.separator);
 
         const len = splited.length;
 

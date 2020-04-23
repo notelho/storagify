@@ -37,13 +37,29 @@ export class Convertor {
 
     }
 
-    // when(xxxx) {
+    public when(instance: Storagify, key: string): Date | null {
 
-    // }
+        const { encoder, calls } = getFrom(instance);
 
-    // is(xxxx) {
+        const enckey = encoder.encodeDES(key);
 
-    // }
+        const encvalue = calls.getItem(enckey);
+
+        if (encvalue) {
+
+            const decvalue = encoder.decodeAES(encvalue);
+
+            const { timestamp } = this._split(decvalue);
+
+            return new Date(timestamp);
+
+        } else {
+
+            return null;
+
+        }
+
+    }
 
     private _split(decvalue: string) {
 

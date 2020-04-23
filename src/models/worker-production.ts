@@ -43,21 +43,27 @@ export class WorkerProduction extends Worker {
     }
 
     public list(instance: Storagify): string[] {
-        // const encoder = this._translate(instance).encoder
-        // return new Array(this._len(instance))
-        //     .fill(false)
-        //     .map((v, i) => i)
-        //     .map((v) => encoder.value(instance.key(v)))
-        return []
+
+        const { calls, encoder } = getFrom(instance);
+
+        const emptyArray = new Array(instance.length);
+
+        const indexArray = emptyArray.map((v, i) => i);
+
+        const encodedArray = indexArray.map(v => calls.key(v));
+
+        const decodedArray = encodedArray.map(v => encoder.decodeDES(v || ''));
+
+        return <string[]>decodedArray;
+
     }
 
     public when(instance: Storagify, key: string): Date | null {
-        // const
-        //     { encoder, base } = this._translate(instance),
-        //     value = base.getItem(encoder.hash(key)),
-        //     timestamp = encoder.when(value)
-        // return timestamp
-        return new Date()
+
+        const { convertor } = getFrom(instance);
+
+        return convertor.when(instance, key);
+
     }
 
     public clear(instance: Storagify): void {

@@ -7,13 +7,13 @@ export class WorkerProduction extends Worker {
 
     public get(instance: Storagify, key: string): any {
 
-        const { calls, encoder, convertor } = getFrom(instance);
+        const { calls, convertor } = getFrom(instance);
 
-        const encryptedKey = encoder.encodeDES(key);
+        const encryptedKey = convertor.key(instance, key);
 
-        const encvalue = calls.getItem(encryptedKey);
+        const encryptedValue = calls.getItem(encryptedKey);
 
-        const value = convertor.value(instance, encvalue);
+        const value = convertor.value(instance, encryptedValue);
 
         return value;
 
@@ -93,9 +93,9 @@ export class WorkerProduction extends Worker {
 
     public start(instance: Storagify): void {
 
-        // verificar se existe a __config
+        const { configurator } = getFrom(instance);
 
-        // 
+        configurator.toProduction(instance);
 
     }
 

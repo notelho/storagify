@@ -27,7 +27,7 @@ export class WorkerDevelopment extends Worker {
 
         calls.setItem(key, stringValue);
 
-        configurator.docheck(instance);
+        configurator.doCheck(instance);
 
         configurator.update(instance, key, timestamp);
 
@@ -57,7 +57,7 @@ export class WorkerDevelopment extends Worker {
 
         const { configurator } = getFrom(instance);
 
-        configurator.docheck(instance);
+        configurator.doCheck(instance);
 
         return configurator.when(instance, key);
 
@@ -79,11 +79,7 @@ export class WorkerDevelopment extends Worker {
 
         const { configurator } = getFrom(instance);
 
-        // configurator.docheck(instance);
-
-
-        // pra cada item no storage, converter pra dev e dar um config.update
-
+        configurator.toDevelopment(instance);
 
     }
 

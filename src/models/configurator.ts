@@ -60,7 +60,7 @@ export class Configurator {
 
     }
 
-    public docheck(instance: Storagify): void {
+    public doCheck(instance: Storagify): void {
 
         const { calls } = getFrom(instance);
 
@@ -89,6 +89,28 @@ export class Configurator {
             this._setConfig(instance, newConfig);
 
         }
+
+    }
+
+    public prepareConverion(instance: Storagify) {
+
+        // https://www.youtube.com/watch?v=ihHUwszlzq8
+
+    }
+
+    public toDevelopment(instance: Storagify): void {
+
+        const data = this.prepareConverion(instance);
+
+        return
+
+    }
+
+    public toProduction(instance: Storagify): void {
+
+        const data = this.prepareConverion(instance);
+
+        return
 
     }
 

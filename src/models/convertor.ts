@@ -5,6 +5,8 @@ export class Convertor {
 
     readonly separator: string = '$T';
 
+    readonly name: string = '__storagify';
+
     constructor() { }
 
     public value(instance: Storagify, encryptedValue: string): any {
@@ -18,6 +20,16 @@ export class Convertor {
         const parsed = parser.parse(value);
 
         return parsed;
+
+    }
+
+    public key(instance: Storagify, key: string): string {
+
+        const { calls, encoder, convertor } = getFrom(instance);
+
+        encoder.encodeDES(key);
+
+        return ''
 
     }
 
@@ -58,6 +70,26 @@ export class Convertor {
             return null;
 
         }
+
+    }
+
+    public toProduction(instance: Storagify): void {
+
+        const { calls, encoder, convertor } = getFrom(instance);
+
+        // configurator .getconfig
+
+        // pra cada item na config {
+
+        // let value = item
+
+        // calls . remove ( item . k  )
+
+        // convertor.concat( ... ... ...)
+
+        // calls.set item ( item . dsdsdd)
+
+        // }
 
     }
 

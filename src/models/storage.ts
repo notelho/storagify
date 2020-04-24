@@ -3,18 +3,16 @@ import StorageOptions from "./storage-options";
 import PrototypeInstace from "./prototype-instance";
 import PrototypeFunction from "./prototype-function";
 import Storagify from "./storagify";
+import checkInstance from "../utils/check-instance";
+import checkKey from "../utils/check-key";
 
 export class Storage {
 
     private _env: StorageEnvironment;
 
     constructor(key: string, options: StorageOptions) {
-        if (!localStorage || !sessionStorage) {
-            throw new Error('Storage instance not found');
-        }
-        if (!key || typeof key !== 'string') {
-            throw new Error('String key not found');
-        }
+        checkInstance();
+        checkKey(key);
         const development = options.development || false;
         const stringify = options.stringify || false;
         const debug = options.debug || false;

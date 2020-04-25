@@ -8,8 +8,6 @@ export class Configurator {
 
     readonly key = "5c5a0bf45e5dd45f1eb610c1d98d7d5c";
 
-    readonly name = "__storagify__development";
-
     private _encoder: Encoder;
 
     constructor() {
@@ -92,25 +90,77 @@ export class Configurator {
 
     }
 
-    public prepareConverion(instance: Storagify) {
-
-        // https://www.youtube.com/watch?v=ihHUwszlzq8
-
-    }
+    // public prepareConverion(instance: Storagify) {
+    // const data = this.prepareConverion(instance);
+    // }
 
     public toDevelopment(instance: Storagify): void {
-
-        const data = this.prepareConverion(instance);
-
-        return
 
     }
 
     public toProduction(instance: Storagify): void {
 
-        const data = this.prepareConverion(instance);
+        // salvar chave e timestamp = []
 
-        return
+        // salvar chave e valor = []
+
+        salvar as mudanças aqui = []
+
+        salvar a config aqui = []
+
+        se existir a config {
+
+            pegar a config e salvar = no array
+
+            deletar a config()
+
+        }
+
+        pra cada valor no storage  {
+
+            verificar se existe a key na config
+
+            se existir {
+
+                timestamp = config[index].timestamp
+
+            } se não existir {
+
+                timestamp = getTime()
+
+            }
+
+            key = convertor.key
+
+            value = convertor.concat(value, timestmap)
+
+            mudanças.push({ delete: key, save: { key, value } })
+
+        }
+
+        pra cada mudança{
+
+            call.remove(mudança.key)
+
+            call.set(mudança.save.key, mudança.save.value)
+
+        }
+
+    }
+
+    public isProd(instance: Storagify): boolean {
+
+        se existe primeiro item {
+
+            se a primeira chave esta criptografada {
+
+                return true
+
+            }
+
+        }
+
+        return false
 
     }
 

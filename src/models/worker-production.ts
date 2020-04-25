@@ -95,7 +95,13 @@ export class WorkerProduction extends Worker {
 
         const { configurator } = getFrom(instance);
 
-        configurator.toProduction(instance);
+        const isProd = configurator.isProd(instance);
+
+        if (!isProd) {
+
+            configurator.toProduction(instance);
+
+        }
 
     }
 

@@ -1,4 +1,4 @@
-export function getTime(timestamp?: number): number {
+export function getTime(timestamp?: Date | number): number {
 
     let date: Date = new Date();
 

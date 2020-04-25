@@ -73,26 +73,6 @@ export class Convertor {
 
     }
 
-    public toProduction(instance: Storagify): void {
-
-        const { calls, encoder, convertor } = getFrom(instance);
-
-        // configurator .getconfig
-
-        // pra cada item na config {
-
-        // let value = item
-
-        // calls . remove ( item . k  )
-
-        // convertor.concat( ... ... ...)
-
-        // calls.set item ( item . dsdsdd)
-
-        // }
-
-    }
-
     private _split(decryptedValue: string) {
 
         const splited = decryptedValue.split(this.separator);

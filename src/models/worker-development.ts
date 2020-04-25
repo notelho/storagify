@@ -79,7 +79,13 @@ export class WorkerDevelopment extends Worker {
 
         const { configurator } = getFrom(instance);
 
-        configurator.toDevelopment(instance);
+        const isProd = configurator.isProd(instance);
+
+        if (isProd) {
+
+            configurator.toDevelopment(instance);
+
+        }
 
     }
 

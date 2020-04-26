@@ -2,10 +2,11 @@ import NativeBase from "./native-base";
 import StorageEnvironment from "./storage-environment";
 import WorkerDevelopment from "./worker-development";
 import WorkerProduction from "./worker-production";
-import Parser from "./parser";
-import Encoder from "./encoder";
-import Configurator from "./configurator";
+import ConfiguratorDevelopment from "./configurator-development";
+import ConfiguratorProduction from "./configurator-production";
 import Convertor from "./convertor";
+import Encoder from "./encoder";
+import Parser from "./parser";
 
 export interface Storagify extends Storage {
 
@@ -21,15 +22,25 @@ export interface Storagify extends Storage {
 
     "[[encoder]]": Encoder;
 
-    "[[development]]": WorkerDevelopment;
-
-    "[[production]]": WorkerProduction;
+    "[[convertor]]": Convertor;
 
     "[[native]]": NativeBase;
 
-    "[[configurator]]": Configurator;
+    "[[development]]": {
 
-    "[[convertor]]": Convertor;
+        worker: WorkerDevelopment;
+
+        config: ConfiguratorDevelopment;
+
+    }
+
+    "[[production]]": {
+
+        worker: WorkerProduction;
+
+        config: ConfiguratorProduction;
+
+    }
 
     // ==================================================
 

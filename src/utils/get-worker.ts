@@ -6,10 +6,10 @@ export function getWorker(instance: Storagify): Worker {
     const env = instance["[[environment]]"];
 
     if (env.development) {
-        return instance[`[[development]]`];
+        return instance[`[[development]]`].worker;
     }
 
-    return instance[`[[production]]`];
+    return instance[`[[production]]`].worker;
 }
 
 export default getWorker;

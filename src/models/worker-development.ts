@@ -19,17 +19,13 @@ export class WorkerDevelopment extends Worker {
 
     public set(instance: Storagify, key: string, value: any): void {
 
-        const { configurator, parser, calls } = getFrom(instance);
+        const { configurator, parser } = getFrom(instance);
 
         const timestamp = getTime();
 
         const stringValue = parser.stringfy(value);
 
-        calls.setItem(key, stringValue);
-
-        configurator.doCheck(instance);
-
-        configurator.update(instance, key, timestamp);
+        configurator.update(instance, key, stringValue, timestamp);
 
     }
 
@@ -57,8 +53,6 @@ export class WorkerDevelopment extends Worker {
 
         const { configurator } = getFrom(instance);
 
-        configurator.doCheck(instance);
-
         return configurator.when(instance, key);
 
     }
@@ -77,13 +71,13 @@ export class WorkerDevelopment extends Worker {
 
     public start(instance: Storagify): void {
 
-        const { configurator } = getFrom(instance);
+        const { convertor } = getFrom(instance);
 
-        const isProd = configurator.isProd(instance);
+        const isProd = convertor.isProd(instance);
 
         if (isProd) {
 
-            configurator.toDevelopment(instance);
+            convertor.toDevelopment(instance);
 
         }
 

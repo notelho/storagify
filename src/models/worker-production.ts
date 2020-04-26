@@ -9,11 +9,11 @@ export class WorkerProduction extends Worker {
 
         const { calls, convertor } = getFrom(instance);
 
-        const encryptedKey = convertor.key(instance, key);
+        const encryptedKey = convertor.createProductionKey(instance, key);
 
         const encryptedValue = calls.getItem(encryptedKey);
 
-        const value = convertor.value(instance, encryptedValue);
+        const value = convertor.getOriginalValue(instance, encryptedValue);
 
         return value;
 
@@ -21,23 +21,21 @@ export class WorkerProduction extends Worker {
 
     public set(instance: Storagify, key: string, value: any): void {
 
-        const { calls, encoder, convertor } = getFrom(instance);
+        const { parser, configurator } = getFrom(instance);
 
         const timestamp = getTime();
 
-        const encryptedValue = convertor.concat(instance, value, timestamp);
+        const stringValue = parser.stringfy(value);
 
-        const encryptedKey = encoder.encodeDES(key);
-
-        calls.setItem(encryptedKey, encryptedValue);
+        configurator.update(instance, key, stringValue, timestamp);
 
     }
 
     public delete(instance: Storagify, key: string): void {
 
-        const { calls, encoder } = getFrom(instance);
+        const { calls, convertor } = getFrom(instance);
 
-        const encryptedKey = encoder.encodeDES(key);
+        const encryptedKey = convertor.createProductionKey(instance, key);
 
         calls.removeItem(encryptedKey);
 
@@ -45,7 +43,7 @@ export class WorkerProduction extends Worker {
 
     public list(instance: Storagify): string[] {
 
-        const { calls, encoder } = getFrom(instance);
+        const { calls, convertor } = getFrom(instance);
 
         const emptyArray = new Array(instance.length);
 
@@ -53,17 +51,21 @@ export class WorkerProduction extends Worker {
 
         const encryptedArray = indexArray.map(v => calls.key(v));
 
-        const descryptedArray = encryptedArray.map(v => encoder.decodeDES(v || ''));
+        const descryptedArray = encryptedArray.map(key => {
 
-        return <string[]>descryptedArray;
+            return convertor.getOriginalKey(instance, <string>key);
+
+        });
+
+        return descryptedArray;
 
     }
 
     public when(instance: Storagify, key: string): Date | null {
 
-        const { convertor } = getFrom(instance);
+        const { configurator } = getFrom(instance);
 
-        return convertor.when(instance, key);
+        return configurator.when(instance, key);
 
     }
 
@@ -93,13 +95,13 @@ export class WorkerProduction extends Worker {
 
     public start(instance: Storagify): void {
 
-        const { configurator } = getFrom(instance);
+        const { convertor } = getFrom(instance);
 
-        const isProd = configurator.isProd(instance);
+        const isProd = convertor.isProd(instance);
 
         if (!isProd) {
 
-            configurator.toProduction(instance);
+            convertor.toProduction(instance);
 
         }
 

@@ -1,21 +1,84 @@
+import * as defaultConfiguration from '../utils/default-configuration';
 import Storagify from "./storagify";
 import getFrom from "../utils/get-from";
 
 export class Convertor {
 
-    readonly separator: string = '$T';
-
-    readonly name: string = '__storagify';
-
     constructor() { }
 
-    public value(instance: Storagify, encryptedValue: string): any {
+    public toDevelopment(instance: Storagify): void {
 
-        const { encoder, parser } = getFrom(instance);
+    }
+
+    public toProduction(instance: Storagify): void {
+
+        // salvar as mudanças aqui = []
+
+        // salvar a config aqui = []
+
+        // se existir a config {
+
+        //     pegar a config e salvar = no array
+
+        //     deletar a config()
+
+        // }
+
+        // pra cada valor no storage  {
+
+        //     verificar se existe a key na config
+
+        //     se existir {
+
+        //         timestamp = config[index].timestamp
+
+        //     } se não existir {
+
+        //         timestamp = getTime()
+
+        //     }
+
+        //     key = convertor.key
+
+        //     value = convertor.concat(value, timestmap)
+
+        //     mudanças.push({ delete: key, save: { key, value } })
+
+        // }
+
+        // pra cada mudança{
+
+        //     call.remove(mudança.key)
+
+        //     call.set(mudança.save.key, mudança.save.value)
+
+        // }
+
+    }
+
+    public isProd(instance: Storagify): boolean {
+
+        // se existe primeiro item {
+
+        //     se a primeira chave esta criptografada {
+
+        //         return true
+
+        //     }
+
+        // }
+
+        return false
+
+    }
+
+    public getOriginalValue(instance: Storagify, encryptedValue: string): any {
+
+        const { encoder, parser, convertor } = getFrom(instance);
 
         const decryptedValue = encoder.decodeAES(encryptedValue);
 
-        const { value } = this._split(decryptedValue);
+        const { value } = convertor.split(decryptedValue);
 
         const parsed = parser.parse(value);
 
@@ -23,17 +86,31 @@ export class Convertor {
 
     }
 
-    public key(instance: Storagify, key: string): string {
+    public getOriginalKey(instance: Storagify, encryptedKey: string): string {
 
-        const { calls, encoder, convertor } = getFrom(instance);
+        const { encoder } = getFrom(instance);
 
-        encoder.encodeDES(key);
+        const decryptedKey = encoder.decodeAES(encryptedKey);
 
-        return ''
+        const originalKey = decryptedKey.replace(defaultConfiguration.productionName, '');
+
+        return originalKey;
 
     }
 
-    public concat(instance: Storagify, value: any, timestamp: number): string {
+    public createProductionKey(instance: Storagify, key: string): string {
+
+        const { encoder } = getFrom(instance);
+
+        const concatenatedKey = key + defaultConfiguration.productionName;
+
+        const encryptedKey = encoder.encodeDES(concatenatedKey);
+
+        return encryptedKey;
+
+    }
+
+    public createProductionValue(instance: Storagify, value: any, timestamp: number): string {
 
         const { encoder, parser } = getFrom(instance);
 
@@ -41,7 +118,7 @@ export class Convertor {
 
         const stringValue = parser.stringfy(value);
 
-        const concatenatedValue = `${stringValue}${this.separator}${stringTimestamp}`
+        const concatenatedValue = `${stringValue}${defaultConfiguration.productionSeparator}${stringTimestamp}`
 
         const encryptedValue = encoder.encodeAES(concatenatedValue);
 
@@ -49,33 +126,9 @@ export class Convertor {
 
     }
 
-    public when(instance: Storagify, key: string): Date | null {
+    public split(decryptedValue: string) {
 
-        const { encoder, calls } = getFrom(instance);
-
-        const encryptedKey = encoder.encodeDES(key);
-
-        const encryptedValue = calls.getItem(encryptedKey);
-
-        if (encryptedValue) {
-
-            const decryptedValue = encoder.decodeAES(encryptedValue);
-
-            const { timestamp } = this._split(decryptedValue);
-
-            return new Date(timestamp);
-
-        } else {
-
-            return null;
-
-        }
-
-    }
-
-    private _split(decryptedValue: string) {
-
-        const splited = decryptedValue.split(this.separator);
+        const splited = decryptedValue.split(defaultConfiguration.productionSeparator);
 
         const len = splited.length;
 
@@ -84,6 +137,12 @@ export class Convertor {
         const value: string = splited.splice(len - 1, 1).join('');
 
         return { value, timestamp };
+
+    }
+
+    public isValidName(key: string): boolean {
+
+        return key !== defaultConfiguration.developmentName;
 
     }
 

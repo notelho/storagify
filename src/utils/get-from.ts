@@ -1,5 +1,6 @@
 import Storagify from "../models/storagify";
 import getType from "./get-type";
+import getConfigurator from "./get-configurator";
 
 export function getFrom(instance: Storagify) {
 
@@ -9,11 +10,11 @@ export function getFrom(instance: Storagify) {
 
         type: getType(instance),
 
+        configurator: getConfigurator(instance),
+
         encoder: instance["[[encoder]]"],
 
         parser: instance["[[parser]]"],
-
-        configurator: instance["[[configurator]]"],
 
         convertor: instance["[[convertor]]"],
 

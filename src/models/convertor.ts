@@ -1,6 +1,9 @@
-import * as defaultConfiguration from '../utils/default-configuration';
 import Storagify from "./storagify";
+import TypeAction from './type-action';
+import TypeStored from "./type-stored";
+import * as defaultConfiguration from '../utils/default-configuration';
 import getFrom from "../utils/get-from";
+import getTime from "../utils/get-time";
 
 export class Convertor {
 
@@ -12,47 +15,67 @@ export class Convertor {
 
     public toProduction(instance: Storagify): void {
 
-        // salvar as mudanças aqui = []
+        const { convertor, calls, parser } = getFrom(instance);
 
-        // salvar a config aqui = []
+        const developmentName = defaultConfiguration.developmentName;
 
-        // se existir a config {
+        const config = calls.getItem(developmentName);
 
-        //     pegar a config e salvar = no array
+        let storageActions: TypeAction[] = [];
 
-        //     deletar a config()
+        let oldConfig: TypeStored[] = [];
 
-        // }
+        if (config) {
 
-        // pra cada valor no storage  {
+            oldConfig = parser.parse(config);
 
-        //     verificar se existe a key na config
+            calls.removeItem(developmentName);
 
-        //     se existir {
+        }
 
-        //         timestamp = config[index].timestamp
+        const emptyArray = new Array(instance.length);
 
-        //     } se não existir {
+        const indexArray = emptyArray.map((v, i) => i);
 
-        //         timestamp = getTime()
+        const keysArray = indexArray.map(v => calls.key(v) || '');
 
-        //     }
+        for (let key of keysArray) {
 
-        //     key = convertor.key
+            let configIndex = oldConfig.map(t => t.k).indexOf(key);
 
-        //     value = convertor.concat(value, timestmap)
+            let timestamp: number;
 
-        //     mudanças.push({ delete: key, save: { key, value } })
+            let value = calls.getItem(key);
 
-        // }
+            if (configIndex !== -1) {
 
-        // pra cada mudança{
+                timestamp = oldConfig[configIndex].t;
 
-        //     call.remove(mudança.key)
+            } else {
 
-        //     call.set(mudança.save.key, mudança.save.value)
+                timestamp = getTime();
 
-        // }
+            }
+
+            const storageAction = {
+                delete: key,
+                save: {
+                    key: convertor.createProductionKey(instance, key),
+                    value: convertor.createProductionValue(instance, value, timestamp)
+                }
+            };
+
+            storageActions.push(storageAction);
+
+        }
+
+        for (let action of storageActions) {
+
+            calls.removeItem(action.delete);
+
+            calls.setItem(action.save.key, action.save.value);
+
+        }
 
     }
 

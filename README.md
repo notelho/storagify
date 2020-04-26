@@ -1,5 +1,5 @@
 NEXT FEATURES:
 
-    - minify in production version the timestamp next to the value / key
-    - availability of more encryptions to choose from
-    - jwt integration
+    - removing instances from Storage interface;
+    - availability of more encryptions to choose from;
+    - jwt integration;

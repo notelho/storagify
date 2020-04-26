@@ -58,15 +58,31 @@ export class Convertor {
 
     public isProd(instance: Storagify): boolean {
 
-        // se existe primeiro item {
+        const { encoder, calls } = getFrom(instance);
 
-        //     se a primeira chave esta criptografada {
+        const firstKey = calls.key(0);
 
-        //         return true
+        if (firstKey) {
 
-        //     }
+            try {
 
-        // }
+                const descryptedKey = encoder.decodeDES(firstKey);
+
+                const productionName = defaultConfiguration.productionName;
+
+                const isProd = descryptedKey.includes(productionName);
+
+                if (isProd) {
+                    return true;
+                }
+
+            } catch (error) {
+
+                return false;
+
+            }
+
+        }
 
         return false
 

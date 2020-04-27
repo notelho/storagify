@@ -1,12 +1,14 @@
 import StorageEnvironment from './storage-environment.js';
 import WorkerDevelopment from './worker-development.js';
 import WorkerProduction from './worker-production.js';
-import Configurator from './configurator.js';
+import Convertor from './convertor.js';
 import Prototype from './prototype';
 import Encoder from './encoder.js';
 import Parser from './parser.js';
+import ConfiguratorDevelopment from './configurator-development.js';
+import ConfiguratorProduction from './configurator-production.js';
+
 import includes from '../utils/includes';
-import Convertor from './convertor.js';
 
 export class PrototypeInstance implements Prototype {
 
@@ -19,12 +21,18 @@ export class PrototypeInstance implements Prototype {
 
         Storage.prototype[`[[environment]]`] = env;
 
+        Storage.prototype[`[[convertor]]`] = new Convertor();
         Storage.prototype[`[[encoder]]`] = new Encoder(key);
         Storage.prototype[`[[parser]]`] = new Parser(stringfy);
-        Storage.prototype[`[[convertor]]`] = new Convertor();
-        Storage.prototype[`[[configurator]]`] = new Configurator();
-        Storage.prototype[`[[development]]`] = new WorkerDevelopment();
-        Storage.prototype[`[[production]]`] = new WorkerProduction();
+
+        const devWorker = new WorkerDevelopment();
+        const devConfig = new ConfiguratorDevelopment();
+
+        const prodWorker = new WorkerProduction();
+        const prodConfig = new ConfiguratorProduction();
+
+        Storage.prototype[`[[development]]`] = { worker: devWorker, config: devConfig };
+        Storage.prototype[`[[production]]`] = { worker: prodWorker, config: prodConfig };
 
         Storage.prototype[`[[native]]`] = {};
         Storage.prototype[`[[native]]`]['setItem'] = Storage.prototype['setItem'];

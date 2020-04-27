@@ -1,45 +1,21 @@
+import * as defaultConfiguration from './default-configuration';
 import Storagify from "../models/storagify";
+import getFrom from "./get-from";
 
-export function describer(instance: Storagify, action: string, callback?: Function): any {
+export function describer(instance: Storagify, action: string): void {
 
-    let recall = undefined;
+    const { type, environment } = getFrom(instance);
 
-    if (instance.env().debug) {
+    if (environment.debug) {
 
-        const flag: string = '{{instance}}';
-        const type: string = instance.type();
-        const message: string = action.replace(flag, type);
+        const key: string = defaultConfiguration.describeKey;
+
+        const message: string = action.replace(key, type);
 
         console.warn(message);
-    }
-
-    if (callback) {
-
-        try {
-
-            recall = callback();
-
-            if (recall) {
-
-                const stringify = instance.env().stringify;
-
-                const isString = typeof recall === 'string';
-
-                if (stringify && !isString) {
-                    recall = JSON.stringify(recall);
-                }
-
-            }
-
-        } catch (error) {
-
-            console.warn(error);
-
-        }
 
     }
 
-    return recall;
 }
 
 export default describer;

@@ -3,6 +3,7 @@ import Prototype from './prototype';
 import Storagify from './storagify';
 import getWorker from '../utils/get-worker';
 import returner from '../utils/returner';
+import * as protos from '../prototypes';
 
 export class PrototypeFunction implements Prototype {
 
@@ -12,13 +13,7 @@ export class PrototypeFunction implements Prototype {
 
         // =====================================================================================
 
-        Storage.prototype['list'] = function (): string[] {
-            const instance = <Storagify>this;
-            const action: string = `Listing all keys in {{instance}}..`;
-            return returner(instance, action, function () {
-                return getWorker(instance).list(instance);
-            });
-        };
+        Storage.prototype['list'] = protos.list.function;
 
         Storage.prototype['when'] = function (key: string): Date {
             const instance = <Storagify>this;

@@ -1,4 +1,4 @@
-import * as defaultConfiguration from './default-configuration';
+import * as defaults from './default-configuration';
 import Storagify from "../models/storagify";
 import getFrom from "./get-from";
 
@@ -8,7 +8,7 @@ export function describer(instance: Storagify, action: string): void {
 
     if (environment.debug) {
 
-        const key: string = defaultConfiguration.describeKey;
+        const key: string = defaults.describeKey;
 
         const message: string = action.replace(key, type);
 

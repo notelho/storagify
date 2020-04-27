@@ -1,9 +1,9 @@
 import Storagify from "./storagify";
 import TypeAction from './type-action';
 import TypeStored from "./type-stored";
-import * as defaultConfiguration from '../utils/default-configuration';
 import getFrom from "../utils/get-from";
 import getTime from "../utils/get-time";
+import * as defaults from '../utils/default-configuration';
 
 export class Convertor {
 
@@ -17,7 +17,7 @@ export class Convertor {
 
         const { convertor, calls, parser } = getFrom(instance);
 
-        const developmentName = defaultConfiguration.developmentName;
+        const developmentName = defaults.developmentName;
 
         const config = calls.getItem(developmentName);
 
@@ -91,7 +91,7 @@ export class Convertor {
 
                 const descryptedKey = encoder.decodeDES(firstKey);
 
-                const productionName = defaultConfiguration.productionName;
+                const productionName = defaults.productionName;
 
                 const isProd = descryptedKey.includes(productionName);
 
@@ -131,7 +131,7 @@ export class Convertor {
 
         const decryptedKey = encoder.decodeAES(encryptedKey);
 
-        const originalKey = decryptedKey.replace(defaultConfiguration.productionName, '');
+        const originalKey = decryptedKey.replace(defaults.productionName, '');
 
         return originalKey;
 
@@ -141,7 +141,7 @@ export class Convertor {
 
         const { encoder } = getFrom(instance);
 
-        const concatenatedKey = key + defaultConfiguration.productionName;
+        const concatenatedKey = key + defaults.productionName;
 
         const encryptedKey = encoder.encodeDES(concatenatedKey);
 
@@ -157,7 +157,7 @@ export class Convertor {
 
         const stringValue = parser.stringfy(value);
 
-        const concatenatedValue = `${stringValue}${defaultConfiguration.productionSeparator}${stringTimestamp}`
+        const concatenatedValue = `${stringValue}${defaults.productionSeparator}${stringTimestamp}`
 
         const encryptedValue = encoder.encodeAES(concatenatedValue);
 
@@ -167,7 +167,7 @@ export class Convertor {
 
     public split(decryptedValue: string) {
 
-        const splited = decryptedValue.split(defaultConfiguration.productionSeparator);
+        const splited = decryptedValue.split(defaults.productionSeparator);
 
         const len = splited.length;
 
@@ -181,7 +181,7 @@ export class Convertor {
 
     public isValidName(key: string): boolean {
 
-        return key !== defaultConfiguration.developmentName;
+        return key !== defaults.developmentName;
 
     }
 

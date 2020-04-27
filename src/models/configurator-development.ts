@@ -1,4 +1,4 @@
-import * as defaultConfiguration from '../utils/default-configuration';
+import * as defaults from '../utils/default-configuration';
 import Configurator from "./configurator";
 import TypeStored from "./type-stored";
 import Storagify from "./storagify";
@@ -67,7 +67,7 @@ export class ConfiguratorDevelopment extends Configurator {
 
         const { calls, convertor } = getFrom(instance);
 
-        const config = calls.getItem(defaultConfiguration.developmentName);
+        const config = calls.getItem(defaults.developmentName);
 
         if (!config) {
 
@@ -103,7 +103,7 @@ export class ConfiguratorDevelopment extends Configurator {
 
         const encoded = this.encoder.encodeAES(stringValue);
 
-        const developmentKey = defaultConfiguration.developmentKey;
+        const developmentKey = defaults.developmentKey;
 
         calls.setItem(developmentKey, encoded);
 
@@ -113,7 +113,7 @@ export class ConfiguratorDevelopment extends Configurator {
 
         const { calls, parser } = getFrom(instance);
 
-        const developmentKey = defaultConfiguration.developmentKey;
+        const developmentKey = defaults.developmentKey;
 
         const stringValue = calls.getItem(developmentKey);
 

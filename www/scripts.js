@@ -1,63 +1,34 @@
 
-// function main() {
+import init from '../lib/index.js';
 
-//     // tests()
+function test() {
 
-//     storagify.init('storagify')
+    init('mykey');
 
-//     localStorage.setItem('storagify', 'storagify')
+    localStorage.setItem('storagify', 'storagify')
 
-//     let body = document.querySelector('body')
-//     let js = document.createElement('div')
-//     js.id = "js"
-//     js.innerHTML = "js"
-//     body.appendChild(js)
 
-// }
 
-// function tests() {
-//     // return options , { debug: true, stringfy: true}
-//     console.warn('start');
+}
 
-//     localStorage.setItem('teste', JSON.stringify({ a: 'b' }))
-//     localStorage.setItem('teste2', 'teste2')
-//     localStorage.setItem('teste3', null)
+function success() {
 
-//     console.log(localStorage.getItem('teste'))
-//     console.log(localStorage.getItem('teste2'))
-//     console.log(localStorage.getItem('teste3'))
+    let body = document.querySelector('body');
+    let js = document.createElement('div');
 
-//     setTimeout(() => {
+    js.id = "js";
+    js.innerHTML = "js";
 
-//         console.warn('default to prod:');
-//         storagify.init('test')
+    body.appendChild(js);
 
-//         console.log(localStorage.getItem('teste'))
-//         console.log(localStorage.getItem('teste2'))
-//         console.log(localStorage.getItem('teste3'))
+}
 
-//         setTimeout(() => {
+function main() {
 
-//             console.warn('prod to dev:');
-//             storagify.init('test', { dev: true })
+    test();
 
-//             console.log(localStorage.getItem('teste'))
-//             console.log(localStorage.getItem('teste2'))
-//             console.log(localStorage.getItem('teste3'))
+    success();
 
-//             setTimeout(() => {
+}
 
-//                 console.warn('dev to prod:');
-//                 storagify.init('test')
-
-//                 console.log(localStorage.getItem('teste'))
-//                 console.log(localStorage.getItem('teste2'))
-//                 console.log(localStorage.getItem('teste3'))
-
-//             }, 2000)
-//         }, 2000)
-//     }, 2000)
-
-// }
-
-// main()
+main();

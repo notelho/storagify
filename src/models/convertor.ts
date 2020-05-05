@@ -11,6 +11,61 @@ export class Convertor {
 
     public toDevelopment(instance: Storagify): void {
 
+        const { convertor, calls, parser } = getFrom(instance);
+
+        const developmentName = defaults.developmentName;
+
+        const config = calls.getItem(developmentName);
+
+        let storageActions: TypeAction[] = [];
+
+        let oldConfig: TypeStored[] = [];
+
+        if (config) {
+
+            oldConfig = parser.parse(config);
+
+        } else {
+
+            calls.setItem(developmentName, parser.stringfy({}));
+
+        }
+
+        const emptyArray = new Array(instance.length);
+
+        const indexArray = emptyArray.map((v, i) => i);
+
+        const keysArray = indexArray.map(v => calls.key(v) || '');
+
+        for (let key of keysArray) {
+
+
+            // getOriginalValue
+            // getOriginalKey
+
+            //         pega os valores de produção
+
+            //         ações.push {
+
+            //             delete: key
+
+            //             save: novos valores pegos do produção
+
+            //         }
+
+            //         ações da config.push(novakey, timestamp)
+
+
+
+
+
+
+
+        }
+
+
+        // pra cada ação
+
     }
 
     public toProduction(instance: Storagify): void {
@@ -57,13 +112,7 @@ export class Convertor {
 
             }
 
-            const storageAction = {
-                delete: key,
-                save: {
-                    key: convertor.createProductionKey(instance, key),
-                    value: convertor.createProductionValue(instance, value, timestamp)
-                }
-            };
+            const storageAction: TypeAction = { delete: { key }, set: { key, value, timestamp } };
 
             storageActions.push(storageAction);
 
@@ -71,9 +120,19 @@ export class Convertor {
 
         for (let action of storageActions) {
 
-            calls.removeItem(action.delete);
+            if (action.delete) {
+                calls.removeItem(action.delete.key);
+            }
 
-            calls.setItem(action.save.key, action.save.value);
+            if (action.set) {
+
+                const newKey = convertor.createProductionKey(instance, action.set.key);
+
+                const newValue = convertor.createProductionValue(instance, action.set.value, action.set.timestamp);
+
+                calls.setItem(newKey, newValue);
+
+            }
 
         }
 

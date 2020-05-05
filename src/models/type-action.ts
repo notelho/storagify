@@ -1,12 +1,18 @@
 export type TypeAction = {
 
-    delete: string;
+    delete?: {
 
-    save: {
+        key: string;
+
+    };
+
+    set?: {
 
         key: string;
 
         value: string;
+
+        timestamp: number;
 
     }
 

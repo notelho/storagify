@@ -95,15 +95,15 @@ export class WorkerProduction extends Worker {
 
     public start(instance: Storagify): void {
 
-        const { convertor } = getFrom(instance);
+        // const { convertor } = getFrom(instance);
 
-        const isProd = convertor.isProd(instance);
+        // const isProd = convertor.isProd(instance);
 
-        if (!isProd) {
+        // if (!isProd) {
 
-            convertor.toProduction(instance);
+        //     convertor.toProduction(instance);
 
-        }
+        // }
 
     }
 

@@ -1,14 +1,14 @@
- 
-
-class Instance {
-
-    instance 
-
-    constructor
-
-    destroy 
-
-    init 
 
 
-}
+// class Instance {
+
+//     instance 
+
+//     constructor
+
+//     destroy 
+
+//     init 
+
+
+// }

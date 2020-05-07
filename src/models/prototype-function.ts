@@ -1,4 +1,4 @@
-import StorageEnvironment from './storage-environment.js';
+import StorageEnvironment from './storage-environment';
 import Prototype from './prototype';
 import Storagify from './storagify';
 import getWorker from '../utils/get-worker';

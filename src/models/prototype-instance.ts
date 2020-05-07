@@ -1,12 +1,12 @@
-import StorageEnvironment from './storage-environment.js';
-import WorkerDevelopment from './worker-development.js';
-import WorkerProduction from './worker-production.js';
-import Convertor from './convertor.js';
+import StorageEnvironment from './storage-environment';
+import WorkerDevelopment from './worker-development';
+import WorkerProduction from './worker-production';
+import Convertor from './convertor';
 import Prototype from './prototype';
-import Encoder from './encoder.js';
-import Parser from './parser.js';
-import ConfiguratorDevelopment from './configurator-development.js';
-import ConfiguratorProduction from './configurator-production.js';
+import Encoder from './encoder';
+import Parser from './parser';
+import ConfiguratorDevelopment from './configurator-development';
+import ConfiguratorProduction from './configurator-production';
 
 import includes from '../utils/includes';
 

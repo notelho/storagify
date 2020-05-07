@@ -7,121 +7,112 @@ import getTime from "../utils/get-time";
 
 export class ConfiguratorDevelopment extends Configurator {
 
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 
-    public update(instance: Storagify, key: string, value: string, timestamp: number): void {
+	public update(instance: Storagify, key: string, value: string, timestamp: number): void {
 
-        this._doCheck(instance);
+		this._doCheck(instance);
 
-        const { calls } = getFrom(instance);
+		const { calls } = getFrom(instance);
 
-        const config = this._getConfig(instance);
+		const config = this._getConfig(instance);
 
-        const keyList = config.map(item => item.k);
+		const keyList = config.map(item => item.k);
 
-        const index = keyList.indexOf(key);
+		const index = keyList.indexOf(key);
 
-        if (index !== -1) {
+		if (index !== -1) {
+			config[index].t = timestamp;
+		} else {
+			config.push({ k: key, t: timestamp });
+		}
 
-            config[index].t = timestamp;
+		calls.setItem(key, value);
 
-        } else {
+		this._saveConfig(instance, config);
 
-            config.push({ k: key, t: timestamp });
+	}
 
-        }
+	public when(instance: Storagify, key: string): Date | null {
 
-        calls.setItem(key, value);
+		this._doCheck(instance);
 
-        this._saveConfig(instance, config);
+		const config = this._getConfig(instance);
 
-    }
+		const keyList = config.map(item => item.k);
 
-    public when(instance: Storagify, key: string): Date | null {
+		const index = keyList.indexOf(key);
 
-        this._doCheck(instance);
+		if (index !== -1) {
+			const item = config[index];
+			return new Date(item.t);
+		} else {
+			return null;
+		}
 
-        const config = this._getConfig(instance);
+	}
 
-        const keyList = config.map(item => item.k);
+	private _doCheck(instance: Storagify): void {
 
-        const index = keyList.indexOf(key);
+		const { calls, convertor } = getFrom(instance);
 
-        if (index !== -1) {
+		const config = calls.getItem(defaults.developmentName);
 
-            const item = config[index];
+		if (!config) {
 
-            return new Date(item.t);
+			const newConfig: TypeStored[] = [];
 
-        } else {
+			const emptyArray = new Array(instance.length);
 
-            return null;
+			const indexArray = emptyArray.map((v, i) => i);
 
-        }
+			const keysArray = indexArray.map(v => calls.key(v) as string);
 
-    }
+			for (const key of keysArray) {
 
-    private _doCheck(instance: Storagify): void {
+				if (convertor.isValidName(key)) {
 
-        const { calls, convertor } = getFrom(instance);
+					newConfig.push({ k: key, t: getTime() });
 
-        const config = calls.getItem(defaults.developmentName);
+				}
 
-        if (!config) {
+			}
 
-            const newConfig: TypeStored[] = [];
+			this._saveConfig(instance, newConfig);
 
-            const emptyArray = new Array(instance.length);
+		}
 
-            const indexArray = emptyArray.map((v, i) => i);
+	}
 
-            const keysArray = indexArray.map(v => <string>calls.key(v));
+	private _saveConfig(instance: Storagify, config: TypeStored[]): void {
 
-            for (let key of keysArray) {
+		const { calls, parser } = getFrom(instance);
 
-                if (convertor.isValidName(key)) {
+		const stringValue = parser.stringfy(config);
 
-                    newConfig.push({ k: key, t: getTime() });
+		const encoded = this.encoder.encodeAES(stringValue);
 
-                }
+		const developmentKey = defaults.developmentKey;
 
-            }
+		calls.setItem(developmentKey, encoded);
 
-            this._saveConfig(instance, newConfig);
+	}
 
-        }
+	private _getConfig(instance: Storagify): TypeStored[] {
 
-    }
+		const { calls, parser } = getFrom(instance);
 
-    private _saveConfig(instance: Storagify, config: TypeStored[]): void {
+		const developmentKey = defaults.developmentKey;
 
-        const { calls, parser } = getFrom(instance);
+		const stringValue = calls.getItem(developmentKey);
 
-        const stringValue = parser.stringfy(config);
+		const decoded = this.encoder.decodeAES(stringValue);
 
-        const encoded = this.encoder.encodeAES(stringValue);
+		return parser.parse(decoded);
 
-        const developmentKey = defaults.developmentKey;
-
-        calls.setItem(developmentKey, encoded);
-
-    }
-
-    private _getConfig(instance: Storagify): TypeStored[] {
-
-        const { calls, parser } = getFrom(instance);
-
-        const developmentKey = defaults.developmentKey;
-
-        const stringValue = calls.getItem(developmentKey);
-
-        const decoded = this.encoder.decodeAES(stringValue);
-
-        return parser.parse(decoded);
-
-    }
+	}
 
 }
 

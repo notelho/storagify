@@ -2,7 +2,7 @@ import StorageEnvironment from "./storage-environment";
 
 export interface Prototype {
 
-    start(env: StorageEnvironment): void;
+	start(env: StorageEnvironment): void;
 
 }
 

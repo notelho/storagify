@@ -4,11 +4,11 @@ import Encoder from "./encoder";
 
 export abstract class Configurator {
 
-    protected readonly encoder = new Encoder(defaults.developmentKey);
+	protected readonly encoder = new Encoder(defaults.developmentKey);
 
-    public abstract update(instance: Storagify, key: string, value: string, timestamp: number): void;
+	public abstract update(instance: Storagify, key: string, value: string, timestamp: number): void;
 
-    public abstract when(instance: Storagify, key: string): Date | null;
+	public abstract when(instance: Storagify, key: string): Date | null;
 
 }
 

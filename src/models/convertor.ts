@@ -7,53 +7,53 @@ import * as defaults from '../utils/default-configuration';
 
 export class Convertor {
 
-    constructor() { }
+	constructor() { }
 
-    public toDevelopment(instance: Storagify): void {
+	public toDevelopment(instance: Storagify): void {
 
-        const { convertor, calls, parser } = getFrom(instance);
+		const { convertor, calls, parser } = getFrom(instance);
 
-        const developmentName = defaults.developmentName;
+		const developmentName = defaults.developmentName;
 
-        const config = calls.getItem(developmentName);
+		const config = calls.getItem(developmentName);
 
-        let storageActions: TypeAction[] = [];
+		let storageActions: TypeAction[] = [];
 
-        let oldConfig: TypeStored[] = [];
+		let oldConfig: TypeStored[] = [];
 
-        if (config) {
+		if (config) {
 
-            oldConfig = parser.parse(config);
+			oldConfig = parser.parse(config);
 
-        } else {
+		} else {
 
-            calls.setItem(developmentName, parser.stringfy({}));
+			calls.setItem(developmentName, parser.stringfy({}));
 
-        }
+		}
 
-        const emptyArray = new Array(instance.length);
+		const emptyArray = new Array(instance.length);
 
-        const indexArray = emptyArray.map((v, i) => i);
+		const indexArray = emptyArray.map((v, i) => i);
 
-        const keysArray = indexArray.map(v => calls.key(v) || '');
+		const keysArray = indexArray.map(v => calls.key(v) || '');
 
-        for (let key of keysArray) {
+		for (let key of keysArray) {
 
 
-            // getOriginalValue
-            // getOriginalKey
+			// getOriginalValue
+			// getOriginalKey
 
-            //         pega os valores de produção
+			//         pega os valores de produção
 
-            //         ações.push {
+			//         ações.push {
 
-            //             delete: key
+			//             delete: key
 
-            //             save: novos valores pegos do produção
+			//             save: novos valores pegos do produção
 
-            //         }
+			//         }
 
-            //         ações da config.push(novakey, timestamp)
+			//         ações da config.push(novakey, timestamp)
 
 
 
@@ -61,188 +61,188 @@ export class Convertor {
 
 
 
-        }
+		}
 
 
-        // pra cada ação
+		// pra cada ação
 
-    }
+	}
 
-    public toProduction(instance: Storagify): void {
+	public toProduction(instance: Storagify): void {
 
-        const { convertor, calls, parser } = getFrom(instance);
+		const { convertor, calls, parser } = getFrom(instance);
 
-        const developmentName = defaults.developmentName;
+		const developmentName = defaults.developmentName;
 
-        const config = calls.getItem(developmentName);
+		const config = calls.getItem(developmentName);
 
-        let storageActions: TypeAction[] = [];
+		let storageActions: TypeAction[] = [];
 
-        let oldConfig: TypeStored[] = [];
+		let oldConfig: TypeStored[] = [];
 
-        if (config) {
+		if (config) {
 
-            oldConfig = parser.parse(config);
+			oldConfig = parser.parse(config);
 
-            calls.removeItem(developmentName);
+			calls.removeItem(developmentName);
 
-        }
+		}
 
-        const emptyArray = new Array(instance.length);
+		const emptyArray = new Array(instance.length);
 
-        const indexArray = emptyArray.map((v, i) => i);
+		const indexArray = emptyArray.map((v, i) => i);
 
-        const keysArray = indexArray.map(v => calls.key(v) || '');
+		const keysArray = indexArray.map(v => calls.key(v) || '');
 
-        for (let key of keysArray) {
+		for (let key of keysArray) {
 
-            let configIndex = oldConfig.map(t => t.k).indexOf(key);
+			let configIndex = oldConfig.map(t => t.k).indexOf(key);
 
-            let timestamp: number;
+			let timestamp: number;
 
-            let value = calls.getItem(key);
+			let value = calls.getItem(key);
 
-            if (configIndex !== -1) {
+			if (configIndex !== -1) {
 
-                timestamp = oldConfig[configIndex].t;
+				timestamp = oldConfig[configIndex].t;
 
-            } else {
+			} else {
 
-                timestamp = getTime();
+				timestamp = getTime();
 
-            }
+			}
 
-            const storageAction: TypeAction = { delete: { key }, set: { key, value, timestamp } };
+			const storageAction: TypeAction = { delete: { key }, set: { key, value, timestamp } };
 
-            storageActions.push(storageAction);
+			storageActions.push(storageAction);
 
-        }
+		}
 
-        for (let action of storageActions) {
+		for (let action of storageActions) {
 
-            if (action.delete) {
-                calls.removeItem(action.delete.key);
-            }
+			if (action.delete) {
+				calls.removeItem(action.delete.key);
+			}
 
-            if (action.set) {
+			if (action.set) {
 
-                const newKey = convertor.createProductionKey(instance, action.set.key);
+				const newKey = convertor.createProductionKey(instance, action.set.key);
 
-                const newValue = convertor.createProductionValue(instance, action.set.value, action.set.timestamp);
+				const newValue = convertor.createProductionValue(instance, action.set.value, action.set.timestamp);
 
-                calls.setItem(newKey, newValue);
+				calls.setItem(newKey, newValue);
 
-            }
+			}
 
-        }
+		}
 
-    }
+	}
 
-    public isProd(instance: Storagify): boolean {
+	public isProd(instance: Storagify): boolean {
 
-        const { encoder, calls } = getFrom(instance);
+		const { encoder, calls } = getFrom(instance);
 
-        const firstKey = calls.key(0);
+		const firstKey = calls.key(0);
 
-        if (firstKey) {
+		if (firstKey) {
 
-            try {
+			try {
 
-                const descryptedKey = encoder.decodeDES(firstKey);
+				const descryptedKey = encoder.decodeDES(firstKey);
 
-                const productionName = defaults.productionName;
+				const productionName = defaults.productionName;
 
-                const isProd = descryptedKey.includes(productionName);
+				const isProd = descryptedKey.includes(productionName);
 
-                if (isProd) {
-                    return true;
-                }
+				if (isProd) {
+					return true;
+				}
 
-            } catch (error) {
+			} catch (error) {
 
-                return false;
+				return false;
 
-            }
+			}
 
-        }
+		}
 
-        return false
+		return false
 
-    }
+	}
 
-    public getOriginalValue(instance: Storagify, encryptedValue: string): any {
+	public getOriginalValue(instance: Storagify, encryptedValue: string): any {
 
-        const { encoder, parser, convertor } = getFrom(instance);
+		const { encoder, parser, convertor } = getFrom(instance);
 
-        const decryptedValue = encoder.decodeAES(encryptedValue);
+		const decryptedValue = encoder.decodeAES(encryptedValue);
 
-        const { value } = convertor.split(decryptedValue);
+		const { value } = convertor.split(decryptedValue);
 
-        const parsed = parser.parse(value);
+		const parsed = parser.parse(value);
 
-        return parsed;
+		return parsed;
 
-    }
+	}
 
-    public getOriginalKey(instance: Storagify, encryptedKey: string): string {
+	public getOriginalKey(instance: Storagify, encryptedKey: string): string {
 
-        const { encoder } = getFrom(instance);
+		const { encoder } = getFrom(instance);
 
-        const decryptedKey = encoder.decodeAES(encryptedKey);
+		const decryptedKey = encoder.decodeAES(encryptedKey);
 
-        const originalKey = decryptedKey.replace(defaults.productionName, '');
+		const originalKey = decryptedKey.replace(defaults.productionName, '');
 
-        return originalKey;
+		return originalKey;
 
-    }
+	}
 
-    public createProductionKey(instance: Storagify, key: string): string {
+	public createProductionKey(instance: Storagify, key: string): string {
 
-        const { encoder } = getFrom(instance);
+		const { encoder } = getFrom(instance);
 
-        const concatenatedKey = key + defaults.productionName;
+		const concatenatedKey = key + defaults.productionName;
 
-        const encryptedKey = encoder.encodeDES(concatenatedKey);
+		const encryptedKey = encoder.encodeDES(concatenatedKey);
 
-        return encryptedKey;
+		return encryptedKey;
 
-    }
+	}
 
-    public createProductionValue(instance: Storagify, value: any, timestamp: number): string {
+	public createProductionValue(instance: Storagify, value: any, timestamp: number): string {
 
-        const { encoder, parser } = getFrom(instance);
+		const { encoder, parser } = getFrom(instance);
 
-        const stringTimestamp = parser.stringfy(timestamp);
+		const stringTimestamp = parser.stringfy(timestamp);
 
-        const stringValue = parser.stringfy(value);
+		const stringValue = parser.stringfy(value);
 
-        const concatenatedValue = `${stringValue}${defaults.productionSeparator}${stringTimestamp}`
+		const concatenatedValue = `${stringValue}${defaults.productionSeparator}${stringTimestamp}`
 
-        const encryptedValue = encoder.encodeAES(concatenatedValue);
+		const encryptedValue = encoder.encodeAES(concatenatedValue);
 
-        return encryptedValue;
+		return encryptedValue;
 
-    }
+	}
 
-    public split(decryptedValue: string) {
+	public split(decryptedValue: string) {
 
-        const splited = decryptedValue.split(defaults.productionSeparator);
+		const splited = decryptedValue.split(defaults.productionSeparator);
 
-        const len = splited.length;
+		const len = splited.length;
 
-        const timestamp: number = parseInt(splited[len - 1]);
+		const timestamp: number = parseInt(splited[len - 1]);
 
-        const value: string = splited.splice(len - 1, 1).join('');
+		const value: string = splited.splice(len - 1, 1).join('');
 
-        return { value, timestamp };
+		return { value, timestamp };
 
-    }
+	}
 
-    public isValidName(key: string): boolean {
+	public isValidName(key: string): boolean {
 
-        return key !== defaults.developmentName;
+		return key !== defaults.developmentName;
 
-    }
+	}
 
 }
 

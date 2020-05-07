@@ -47,22 +47,25 @@
     "url": "https://github.com/notelho/storagify/issues"
   },
   "homepage": "https://github.com/notelho/storagify#readme",
-  "peerDependencies": {
+  "peerDependencies": {},
+  "devDependencies": {
+    "@babel/parser": "^7.9.6",
+    "@babel/types": "^7.9.6",
+    "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.1.0",
     "@typescript-eslint/parser": "^2.1.0",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "ts-loader": "^6.0.4",
+    "jest": "^26.0.1",
+    "jest-diff": "^26.0.1",
+    "npx": "^10.2.2",
     "prettier": "^1.18.2",
+    "pretty-format": "^26.0.1",
+    "ts-jest": "^25.5.0",
+    "ts-loader": "^6.0.4",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7"
-  },
-  "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "ts-jest": "^25.5.0",
-    "jest": "^26.0.1",
-    "npx": "^10.2.2"
   },
   "dependencies": {
     "@types/crypto-js": "^3.1.44",

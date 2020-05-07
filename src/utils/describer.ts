@@ -1,6 +1,6 @@
-import * as defaults from './default-configuration';
 import Storagify from "../models/storagify";
 import getFrom from "./get-from";
+import * as defaults from './default-configuration';
 
 export function describer(instance: Storagify, action: string): void {
 

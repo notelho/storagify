@@ -4,45 +4,45 @@ import getFrom from "../utils/get-from";
 
 export class ConfiguratorProduction extends Configurator {
 
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 
-    public update(instance: Storagify, key: string, value: string, timestamp: number): void {
+	public update(instance: Storagify, key: string, value: string, timestamp: number): void {
 
-        const { calls, convertor, } = getFrom(instance);
+		const { calls, convertor, } = getFrom(instance);
 
-        const encryptedValue = convertor.createProductionValue(instance, value, timestamp);
+		const encryptedValue = convertor.createProductionValue(instance, value, timestamp);
 
-        const encryptedKey = convertor.createProductionKey(instance, key);
+		const encryptedKey = convertor.createProductionKey(instance, key);
 
-        calls.setItem(encryptedKey, encryptedValue);
+		calls.setItem(encryptedKey, encryptedValue);
 
-    }
+	}
 
-    public when(instance: Storagify, key: string): Date | null {
+	public when(instance: Storagify, key: string): Date | null {
 
-        const { encoder, calls, convertor } = getFrom(instance);
+		const { encoder, calls, convertor } = getFrom(instance);
 
-        const encryptedKey = encoder.encodeDES(key);
+		const encryptedKey = encoder.encodeDES(key);
 
-        const encryptedValue = calls.getItem(encryptedKey);
+		const encryptedValue = calls.getItem(encryptedKey);
 
-        if (encryptedValue) {
+		if (encryptedValue) {
 
-            const decryptedValue = encoder.decodeAES(encryptedValue);
+			const decryptedValue = encoder.decodeAES(encryptedValue);
 
-            const { timestamp } = convertor.split(decryptedValue);
+			const { timestamp } = convertor.split(decryptedValue);
 
-            return new Date(timestamp);
+			return new Date(timestamp);
 
-        } else {
+		} else {
 
-            return null;
+			return null;
 
-        }
+		}
 
-    }
+	}
 
 }
 

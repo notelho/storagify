@@ -6,8 +6,9 @@ NEXT FEATURES:
 
 
 NOW:
+	- real tests
 	- fix eslint
 	- code review
 	- unit tests
-	- real tests
 	- automate publish as a script
+	- 2.0.0 (finally)

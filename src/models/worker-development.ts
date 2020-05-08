@@ -5,85 +5,85 @@ import getFrom from '../utils/get-from';
 
 export class WorkerDevelopment extends Worker {
 
-    public get(instance: Storagify, key: string): any {
+	public get(instance: Storagify, key: string): any {
 
-        const { calls, parser } = getFrom(instance);
+		const { calls, parser } = getFrom(instance);
 
-        const value = calls.getItem(key);
+		const value = calls.getItem(key);
 
-        const parsed = parser.parse(value);
+		const parsed = parser.parse(value);
 
-        return parsed;
+		return parsed;
 
-    }
+	}
 
-    public set(instance: Storagify, key: string, value: any): void {
+	public set(instance: Storagify, key: string, value: any): void {
 
-        const { configurator, parser } = getFrom(instance);
+		const { configurator, parser } = getFrom(instance);
 
-        const timestamp = getTime();
+		const timestamp = getTime();
 
-        const stringValue = parser.stringfy(value);
+		const stringValue = parser.stringfy(value);
 
-        configurator.update(instance, key, stringValue, timestamp);
+		configurator.update(instance, key, stringValue, timestamp);
 
-    }
+	}
 
-    public delete(instance: Storagify, key: string): void {
+	public delete(instance: Storagify, key: string): void {
 
-        getFrom(instance).calls.removeItem(key);
+		getFrom(instance).calls.removeItem(key);
 
-    }
+	}
 
-    public list(instance: Storagify): string[] {
+	public list(instance: Storagify): string[] {
 
-        const { calls } = getFrom(instance);
+		const { calls } = getFrom(instance);
 
-        const emptyArray = new Array(instance.length);
+		const emptyArray = new Array(instance.length);
 
-        const indexArray = emptyArray.map((v, i) => i);
+		const indexArray = emptyArray.map((v, i) => i);
 
-        const keysArray = indexArray.map(v => calls.key(v));
+		const keysArray = indexArray.map(v => calls.key(v));
 
-        return <string[]>keysArray;
+		return keysArray as string[];
 
-    }
+	}
 
-    public when(instance: Storagify, key: string): Date | null {
+	public when(instance: Storagify, key: string): Date | null {
 
-        const { configurator } = getFrom(instance);
+		const { configurator } = getFrom(instance);
 
-        return configurator.when(instance, key);
+		return configurator.when(instance, key);
 
-    }
+	}
 
-    public clear(instance: Storagify): void {
+	public clear(instance: Storagify): void {
 
-        getFrom(instance).calls.clear();
+		getFrom(instance).calls.clear();
 
-    }
+	}
 
-    public key(instance: Storagify, index: number): string | null {
+	public key(instance: Storagify, index: number): string | null {
 
-        return getFrom(instance).calls.key(index);
+		return getFrom(instance).calls.key(index);
 
-    }
+	}
 
-    public start(instance: Storagify): void {
+	public start(instance: Storagify): void {
 
-        // const { convertor } = getFrom(instance);
+		// const { convertor } = getFrom(instance);
 
-        // const isProd = convertor.isProd(instance);
+		// const isProd = convertor.isProd(instance);
 
-        // if (isProd) {
+		// if (isProd) {
 
-        //     convertor.toDevelopment(instance);
+		//     convertor.toDevelopment(instance);
 
-        // }
+		// }
 
-        //  else do check?
+		//  else do check?
 
-    }
+	}
 
 }
 

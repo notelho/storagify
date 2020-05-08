@@ -5,107 +5,107 @@ import getTime from "../utils/get-time";
 
 export class WorkerProduction extends Worker {
 
-    public get(instance: Storagify, key: string): any {
+	public get(instance: Storagify, key: string): any {
 
-        const { calls, convertor } = getFrom(instance);
+		const { calls, convertor } = getFrom(instance);
 
-        const encryptedKey = convertor.createProductionKey(instance, key);
+		const encryptedKey = convertor.createProductionKey(instance, key);
 
-        const encryptedValue = calls.getItem(encryptedKey);
+		const encryptedValue = calls.getItem(encryptedKey);
 
-        const value = convertor.getOriginalValue(instance, encryptedValue);
+		const value = convertor.getOriginalValue(instance, encryptedValue);
 
-        return value;
+		return value;
 
-    }
+	}
 
-    public set(instance: Storagify, key: string, value: any): void {
+	public set(instance: Storagify, key: string, value: any): void {
 
-        const { parser, configurator } = getFrom(instance);
+		const { parser, configurator } = getFrom(instance);
 
-        const timestamp = getTime();
+		const timestamp = getTime();
 
-        const stringValue = parser.stringfy(value);
+		const stringValue = parser.stringfy(value);
 
-        configurator.update(instance, key, stringValue, timestamp);
+		configurator.update(instance, key, stringValue, timestamp);
 
-    }
+	}
 
-    public delete(instance: Storagify, key: string): void {
+	public delete(instance: Storagify, key: string): void {
 
-        const { calls, convertor } = getFrom(instance);
+		const { calls, convertor } = getFrom(instance);
 
-        const encryptedKey = convertor.createProductionKey(instance, key);
+		const encryptedKey = convertor.createProductionKey(instance, key);
 
-        calls.removeItem(encryptedKey);
+		calls.removeItem(encryptedKey);
 
-    }
+	}
 
-    public list(instance: Storagify): string[] {
+	public list(instance: Storagify): string[] {
 
-        const { calls, convertor } = getFrom(instance);
+		const { calls, convertor } = getFrom(instance);
 
-        const emptyArray = new Array(instance.length);
+		const emptyArray = new Array(instance.length);
 
-        const indexArray = emptyArray.map((v, i) => i);
+		const indexArray = emptyArray.map((v, i) => i);
 
-        const encryptedArray = indexArray.map(v => calls.key(v));
+		const encryptedArray = indexArray.map(v => calls.key(v));
 
-        const descryptedArray = encryptedArray.map(key => {
+		const descryptedArray = encryptedArray.map(key => {
 
-            return convertor.getOriginalKey(instance, <string>key);
+			return convertor.getOriginalKey(instance, key as string);
 
-        });
+		});
 
-        return descryptedArray;
+		return descryptedArray;
 
-    }
+	}
 
-    public when(instance: Storagify, key: string): Date | null {
+	public when(instance: Storagify, key: string): Date | null {
 
-        const { configurator } = getFrom(instance);
+		const { configurator } = getFrom(instance);
 
-        return configurator.when(instance, key);
+		return configurator.when(instance, key);
 
-    }
+	}
 
-    public clear(instance: Storagify): void {
+	public clear(instance: Storagify): void {
 
-        getFrom(instance).calls.clear();
+		getFrom(instance).calls.clear();
 
-    }
+	}
 
-    public key(instance: Storagify, index: number): string | null {
+	public key(instance: Storagify, index: number): string | null {
 
-        const { calls, encoder } = getFrom(instance);
+		const { calls, encoder } = getFrom(instance);
 
-        const key = calls.key(index);
+		const key = calls.key(index);
 
-        if (key) {
+		if (key) {
 
-            return encoder.decodeDES(key);
+			return encoder.decodeDES(key);
 
-        } else {
+		} else {
 
-            return null;
+			return null;
 
-        }
+		}
 
-    }
+	}
 
-    public start(instance: Storagify): void {
+	public start(instance: Storagify): void {
 
-        // const { convertor } = getFrom(instance);
+		// const { convertor } = getFrom(instance);
 
-        // const isProd = convertor.isProd(instance);
+		// const isProd = convertor.isProd(instance);
 
-        // if (!isProd) {
+		// if (!isProd) {
 
-        //     convertor.toProduction(instance);
+		//     convertor.toProduction(instance);
 
-        // }
+		// }
 
-    }
+	}
 
 }
 

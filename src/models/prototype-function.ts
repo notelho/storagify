@@ -3,7 +3,7 @@ import Prototype from './prototype';
 import Storagify from './storagify';
 import getWorker from '../utils/get-worker';
 import returner from '../utils/returner';
-import * as defaults from '../utils/default-configuration';
+import Defaults from '../utils/defaults';
 
 export class PrototypeFunction implements Prototype {
 
@@ -15,7 +15,7 @@ export class PrototypeFunction implements Prototype {
 
 		Storage.prototype['list'] = function (): string[] {
 			const instance = <Storagify>this;
-			const action: string = `Listing all keys in ${defaults.describeKey}..`;
+			const action: string = `Listing all keys in ${Defaults.describeKey}..`;
 			return returner(instance, action, function () {
 				return getWorker(instance).list(instance);
 			});

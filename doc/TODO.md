@@ -6,9 +6,7 @@ NEXT FEATURES:
 
 
 NOW:
-	- signature index.ts
 	- fix eslint
-	- default as namespace
 	- code review
 	- unit tests
 	- real tests

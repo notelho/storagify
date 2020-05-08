@@ -1,20 +1,20 @@
 import Storagify from "../models/storagify";
 import getFrom from "./get-from";
-import * as defaults from './default-configuration';
+import Defaults from './defaults';
 
 export function describer(instance: Storagify, action: string): void {
 
-    const { type, environment } = getFrom(instance);
+	const { type, environment } = getFrom(instance);
 
-    if (environment.debug) {
+	if (environment.debug) {
 
-        const key: string = defaults.describeKey;
+		const key: string = Defaults.describeKey;
 
-        const message: string = action.replace(key, type);
+		const message: string = action.replace(key, type);
 
-        console.warn(message);
+		console.warn(message);
 
-    }
+	}
 
 }
 

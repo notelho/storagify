@@ -1,5 +1,5 @@
 // import ConfigurationStorage from "../models/configuration-storage";
-// import * as defaults from '../models/configuration-defaults';
+// import Defaults from '../models/configurations';
 
 // export function getConfiguration(
 
@@ -9,9 +9,9 @@
 
 // ): {
 
-//     name: defaults.ItemName,
+//     name: Defaults.ItemName,
 
-//     timestamp: defaults.ItemTimestamp
+//     timestamp: Defaults.ItemTimestamp
 // } {
 
 //     return {

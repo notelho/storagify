@@ -1,33 +1,30 @@
 
-import init from '../lib/index.js';
+var storagify = require('storagify');
+
+console.log(storagify);
 
 function test() {
-
-    init('mykey');
-
-    localStorage.setItem('storagify', 'storagify')
-
-
-
+	// storagify.init('mykey', { development: true });
+	// localStorage.setItem('storagify', 'storagify');
 }
 
 function success() {
 
-    let body = document.querySelector('body');
-    let js = document.createElement('div');
+	let body = document.querySelector('body');
+	let js = document.createElement('div');
 
-    js.id = "js";
-    js.innerHTML = "js";
+	js.id = "js";
+	js.innerHTML = "js";
 
-    body.appendChild(js);
+	body.appendChild(js);
 
 }
 
 function main() {
 
-    test();
+	test();
 
-    success();
+	success();
 
 }
 

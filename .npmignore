@@ -1,0 +1,7 @@
+./www
+./esm
+./dist
+./umd
+
+.editorconfig
+.gitignore

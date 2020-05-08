@@ -1,7 +1,6 @@
 {
-  "name": "www",
+  "name": "strfy-test",
   "version": "1.0.0",
-  "description": "",
   "main": "scripts.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +9,8 @@
   "license": "MIT",
   "dependencies": {
     "rxjs": "^6.5.4",
-    "storagify": "^1.0.2"
-  }
+    "storagify": "file:storagify-1.1.0.tgz",
+    "uniq": "^1.0.1"
+  },
+  "description": ""
 }
